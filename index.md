@@ -19,8 +19,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">1</td>
       <td class="episode-title">
-        <a href="01_vagrant.html">
-          使用 vagrant 安装 ubuntu 系统
+        <a href="01_gems.html">
+          使用 Ruby Gems
         </a>
       </td>
       <td class="episode-length">
