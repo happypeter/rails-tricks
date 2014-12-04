@@ -19,8 +19,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">1</td>
       <td class="episode-title">
-        <a href="01_gems.html">
-          使用 Ruby Gems
+        <a href="01_signup.html">
+          用户注册功能
         </a>
       </td>
       <td class="episode-length">
