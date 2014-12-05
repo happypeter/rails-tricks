@@ -72,14 +72,19 @@ resources :users, only: [:create]
   .signup-form, .login-form {
     width: 100%;
   }
+  .signup-button, .login-button {
+    padding: 20px;
+    width: 100%;
+  }
 }
 {% endhighlight %}
 
 这里停下来，看着这张页面，想想后台要有哪些代码。密码和确认密码项目要匹配，密码存入数据库的时候要加密等等这些任务如果手写是比较麻烦的，好在 Rails 内置了 has_secure_password 这个方法。
-### 使用 has_secure_password
 
+### 使用 has_secure_password
 <!-- 注册成功了不必直接可以登陆进来，后面慢慢通过实用中的 pain 来引入，包括 session[:return_to] 也是一样 -->
 
+打开 has_secure_password 的[文档](http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html)，可以看到要使用它有两个先决条件，第一，要在 Gemfile 里面添加 Bcrypt，第二，就是要求 users 这张表里有 password_digest 这个字段，这个前面咱们已经生成过了。
 ### 登陆
 
 <!-- 先不考虑报错，什么都不用考虑就是实现基本功能就行 -->
