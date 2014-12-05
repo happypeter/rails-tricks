@@ -20,7 +20,7 @@ title: 目录
       <td class="episode-index">1</td>
       <td class="episode-title">
         <a href="01_signup.html">
-          用户注册功能
+          用户注册
         </a>
       </td>
       <td class="episode-length">
