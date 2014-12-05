@@ -18,7 +18,8 @@
 
 /* name of class */
 .highlight .nc {
-  color: #fff;
+  color: #e7be69;
+  /* yellow */
 }
 
 
@@ -68,11 +69,18 @@
 
 /*html tags*/
 .highlight .nt, .highlight .na{
-  color: #e7be69;
+  color: #6c9cbd;
+  /* blue */
 }
 
 /*--- javascript ---*/
 
 .highlight .kd {
   color: #cb7832;
+  /* brown */
+}
+
+.highlight .kt {
+  color: #cb7832;
+  /* brown */
 }
