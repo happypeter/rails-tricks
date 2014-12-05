@@ -11,6 +11,12 @@ title: 用户注册
 get "signup" => "users#signup", :as => "signup"
 {% endhighlight %}
 
+需要跳转到 meetup/ 目录中，执行
+
+    rails g controller users signup
+    rails g model user name:string email:string password_digest:string
+    rake db:migrate
+
 在到 users_controller.rb 中
 
 {% highlight ruby %}
@@ -18,6 +24,14 @@ def signup
   @user = User.new
 end
 {% endhighlight %}
+
+需要到 route.rb 文件中添加
+
+{% highlight ruby %}
+resources :users, only: [:create]
+{% endhighlight %}
+
+可以用 `rake route` 命名来查看到底添加了什么样的路由进来。
 
 对应的 app/views/users/signup.html.erb
 
@@ -47,6 +61,19 @@ end
 </div>
 {% endhighlight %}
 
+再来添加点样式 app/assets/stylesheets/sections/users.css.scss
+
+{% highlight sass %}
+.signup-form-container, .login-form-container{
+  width: 670px;
+  margin: 50px auto;
+  border:1px solid #ddd;
+  padding: 2em;
+  .signup-form, .login-form {
+    width: 100%;
+  }
+}
+{% endhighlight %}
 
 这里停下来，看着这张页面，想想后台要有哪些代码。密码和确认密码项目要匹配，密码存入数据库的时候要加密等等这些任务如果手写是比较麻烦的，好在 Rails 内置了 has_secure_password 这个方法。
 ### 使用 has_secure_password
