@@ -78,7 +78,7 @@ end
 
 
 ### session
-这里的 session 是一个特殊的变量...
+这里的 session 中文翻译成“会话”，在 Rails 中是一个默认就有的特殊变量，你可以向里面存放数据，那么只要你一直打开网页，那么你存储的数据就一直存在。但是当你把页面关掉了，那么 session 中存储的变量就丢失了。session 的底层实现原理，参考：
 
 还需要来到 application_controller.rb
 
@@ -89,22 +89,44 @@ end
 helper_method :current_user
 {% endhighlight %}
 
-
 application.html.erb 中
 
 {% highlight erb %}
-- <li><%= link_to "login", login_path %></li>
-- <li><%= link_to "signup", signup_path %></li>
-+<% if current_user %>
-+  <li><%= link_to current_user.name, "#" %></li>
-+  <li><%= link_to "退出", "#" %></li>
-+<% else %>
-+  <li><%= link_to "login", login_path %></li>
-+  <li><%= link_to "signup", signup_path %></li>
-+<% end %>
+<% if current_user %>
+  <li><%= link_to current_user.name, "#" %></li>
+  <li><%= link_to "logout", "#" %></li>
+<% else %>
+  <li><%= link_to "login", login_path %></li>
+  <li><%= link_to "signup", signup_path %></li>
+<% end %>
 {% endhighlight %}
+
+上面，当前用户的用户名应该链接到用户的个人页面，这里咱们先不弄。
+
 ### 退出登录
 
+application.html.erb 中 logout 对应的这一行改为
+
+{% highlight erb %}
+<li><%= link_to "logout", logout_path, method: "delete" %></li>
+{% endhighlight %}
+
+route.rb 中
+
+{% highlight ruby %}
+delete "logout" => "users#logout", :as => "logout"
+{% endhighlight %}
+
+users_controller.rb 中
+
+{% highlight ruby %}
+def logout
+  session[:user_id] = nil
+  redirect_to :root
+end
+{% endhighlight %}
+
+这样就可以退出登录了。
 <!-- https://laracasts.com/login 参考这里的样式，和表单验证的报错效果。
  -->
 
