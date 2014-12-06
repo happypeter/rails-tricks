@@ -90,6 +90,19 @@ helper_method :current_user
 {% endhighlight %}
 
 
+application.html.erb 中
+
+{% highlight erb %}
+- <li><%= link_to "login", login_path %></li>
+- <li><%= link_to "signup", signup_path %></li>
++<% if current_user %>
++  <li><%= link_to current_user.name, "#" %></li>
++  <li><%= link_to "退出", "#" %></li>
++<% else %>
++  <li><%= link_to "login", login_path %></li>
++  <li><%= link_to "signup", signup_path %></li>
++<% end %>
+{% endhighlight %}
 ### 退出登录
 
 <!-- https://laracasts.com/login 参考这里的样式，和表单验证的报错效果。
