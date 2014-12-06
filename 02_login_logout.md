@@ -76,6 +76,8 @@ def create_login_session
 end
 {% endhighlight %}
 
+
+### session
 这里的 session 是一个特殊的变量...
 
 还需要来到 application_controller.rb
@@ -88,6 +90,7 @@ helper_method :current_user
 {% endhighlight %}
 
 
+### 退出登录
 
 <!-- https://laracasts.com/login 参考这里的样式，和表单验证的报错效果。
  -->
