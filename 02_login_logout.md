@@ -80,6 +80,8 @@ end
 ### session
 这里的 session 中文翻译成“会话”，在 Rails 中是一个默认就有的特殊变量，你可以向里面存放数据，那么只要你一直打开网页，那么你存储的数据就一直存在。但是当你把页面关掉了，那么 session 中存储的变量就丢失了。session 的底层实现原理，参考：
 
+和 session 密切相关的一个变量是 cookie，下一集来介绍。
+
 还需要来到 application_controller.rb
 
 {% highlight ruby %}

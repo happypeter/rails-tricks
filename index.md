@@ -41,8 +41,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">3</td>
       <td class="episode-title">
-        <a href="03_run.html">
-          Hello World
+        <a href="03_cookie.html">
+          使用 cookie 来持久化登录
         </a>
       </td>
       <td class="episode-length">
