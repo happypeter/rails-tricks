@@ -30,8 +30,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">2</td>
       <td class="episode-title">
-        <a href="02_getrails.html">
-          安装 Rails
+        <a href="02_login_logout.html">
+          登录和退出
         </a>
       </td>
       <td class="episode-length">
