@@ -78,7 +78,8 @@ resources :users, only: [:create]
     width: 100%;
   }
   .signup-button, .login-button {
-    padding: 20px;
+    padding: 13px;
+    margin-top: 15px;
     width: 100%;
   }
 }
