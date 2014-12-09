@@ -36,7 +36,7 @@ end
 resources :users, only: [:create]
 {% endhighlight %}
 
-可以用 `rake route` 命名来查看到底添加了什么样的路由进来。
+可以用 `rake routes` 命名来查看到底添加了什么样的路由进来。
 
 对应的 app/views/users/signup.html.erb
 
@@ -49,16 +49,16 @@ resources :users, only: [:create]
           <dd><%= f.text_field :name %></dd>
         </dl>
         <dl class="form">
-          <dt> <%= f.label :email %></dt>
-          <dd> <%= f.text_field :email %> </dd>
+          <dt><%= f.label :email %></dt>
+          <dd><%= f.text_field :email %></dd>
         </dl>
         <dl class="form">
-          <dt> <%= f.label :password, "密码" %> </dt>
-          <dd> <%= f.password_field :password %> </dd>
+          <dt><%= f.label :password, "密码" %></dt>
+          <dd><%= f.password_field :password %></dd>
         </dl>
         <dl class="form">
-          <dt> <%= f.label :password_confirmation, "请再输入一次" %> </dt>
-          <dd> <%= f.password_field :password_confirmation %> </dd>
+          <dt><%= f.label :password_confirmation, "请再输入一次" %></dt>
+          <dd><%= f.password_field :password_confirmation %></dd>
         </dl>
         <p><%= f.submit "注册", :class => "signup-button btn btn-primary" %></p>
     <% end %>
@@ -91,6 +91,12 @@ resources :users, only: [:create]
 <!-- 注册成功了不必直接可以登陆进来，后面慢慢通过实用中的 pain 来引入，包括 session[:return_to] 也是一样 -->
 
 打开 has_secure_password 的[文档](http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html)，可以看到要使用它有两个先决条件，第一，要在 Gemfile 里面添加 Bcrypt，第二，就是要求 users 这张表里有 password_digest 这个字段，这个前面咱们已经生成过了。
+
+到 user.rb 中，添加
+
+{% highlight ruby %}
+has_secure_password
+{% endhighlight %}
 
 /signup 的表单中填写内容，提交会报错：找不到 users#create ，所以咱们就到 users_controller.rb 中，添加
 
