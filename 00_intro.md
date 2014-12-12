@@ -23,6 +23,7 @@ reset password 部分用来引出邮件发送。
 
 ### 课程适合观众
 
+目前正在为方向而犹豫的同学们，学习 Rails 吧，因为这是薪酬最高的一个方向。 <http://www.businessinsider.com/best-tech-skills-resume-ranked-salary-2014-11> ，八卦一把。
 
 
 ### 课程内容

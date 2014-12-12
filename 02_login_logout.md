@@ -2,8 +2,10 @@
 layout: default
 title: 登录和退出
 ---
-### 登陆
 
+这一集讲登录和退出登录，会涉及到一个重要的概念 session ，中文翻译叫“会话”。官方的 session 基本使用的文档 <http://guides.rubyonrails.org/action_controller_overview.html#accessing-the-session> 。
+
+### 登陆
 现在看看如何用这个账户来登陆。
 
 application.html.erb 中来添加
@@ -68,7 +70,7 @@ post "create_login_session" => "users#create_login_session"
 def create_login_session
   user = User.find_by_name(params[:name])
   if user && user.authenticate(params[:password])
-    session[:user_id] = @user.id
+    session[:user_id] = user.id
     redirect_to :root
   else
     redirect_to :login
@@ -77,12 +79,13 @@ end
 {% endhighlight %}
 
 
-### session
-这里的 session 中文翻译成“会话”，在 Rails 中是一个默认就有的特殊变量，你可以向里面存放数据，那么只要你一直打开网页，那么你存储的数据就一直存在。但是当你把页面关掉了，那么 session 中存储的变量就丢失了。session 的底层实现原理，参考： <http://happypeter.github.io/tealeaf-http/book/http/3_stateful_web_applications.html>
+### session 和 current_user
+这里的 session 中文翻译成“会话”，在 Rails 中是一个默认就有的方法，你可以向里面存放数据，那么只要你一直打开网站，那么你存储的数据就一直存在。
+session 的底层实现原理，参考： <http://happypeter.github.io/tealeaf-http/book/http/3_stateful_web_applications.html>
 
-和 session 密切相关的一个变量是 cookie，下一集来介绍。
+和 session 密切相关的一个概念是 cookie，下一集来介绍。
 
-还需要来到 application_controller.rb
+到 application_controller.rb
 
 {% highlight ruby %}
 def current_user
@@ -106,7 +109,6 @@ application.html.erb 中
 上面，当前用户的用户名应该链接到用户的个人页面，这里咱们先不弄。
 
 ### 退出登录
-
 application.html.erb 中 logout 对应的这一行改为
 
 {% highlight erb %}
@@ -129,6 +131,5 @@ end
 {% endhighlight %}
 
 这样就可以退出登录了。
-<!-- https://laracasts.com/login 参考这里的样式，和表单验证的报错效果。
- -->
+
 
