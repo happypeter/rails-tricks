@@ -8,13 +8,7 @@ title: 使用 cookie 来持久化登录
 <!-- mac + chrome 试了一下，即使把浏览器彻底关掉，session[:user_id] 还是有的 -->
 <!-- 书上把 cookie 和 session 都叫 method -->
 
-
-
-
-### remember me
-
-添加 checkbox 的代码
-
+### 添加 checkbox 的代码
 到 login.html.erb 中的提交按钮上方，添加
 
 {% highlight erb %}
@@ -42,5 +36,43 @@ user.css.scss 中要追加这些内容
  -->
 
 ### cookie
+
+如果直接把用户的 id 存放到 cookie 中，这个就太容易被人伪造了，所以来为每一个用户生成一串随机数，用来代表他的身份吧。
+
+user.rb 中
+
+{% highlight ruby %}
+def generate_token(column)
+  begin
+    self[column] = SecureRandom.urlsafe_base64
+  end while User.exists?(column => self[column])
+end
+{% endhighlight %}
+
+users_controller.rb 中的 create_login_session 方法中要做这样的调整
+
+{% highlight ruby %}
+- session[:user_id] = user.id
++ if params[:remember_me]
++   cookies.permanent[:auth_token] = user.auth_token
++ else
++   cookies[:auth_token] = user.auth_token
++ end
+{% endhighlight %}
+
+退出登录的代码也要改，也就是 users_controller.rb 的 logout 方法中
+
+{% highlight ruby %}
+- session[:user_id] = nil
++ cookies.delete(:auth_token)
+{% endhighlight %}
+
+application_controller.rb 中 current_user 也要改写了
+
+{% highlight ruby %}
+def current_user
+  @current_user ||= User.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]
+end
+{% endhighlight %}
 
 <!-- set a cookie in the code, show peoplw in browser inspector -->
