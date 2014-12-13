@@ -2,22 +2,45 @@
 layout: default
 title: 使用 cookie 来持久化登录
 ---
+前面一集，为了保持登陆状态，引入了 session 方法，但是 session 中存储的数据毕竟是临时性的，虽然目前最新的浏览器有各种保持临时数据的缓存方式，但是基本上可以认为如果网站关闭了或是关机重启了，session 中的数据也就丢失了。
 
-### cookie 和 session
-<!-- 书上把 cookie 和 session 都叫 method -->
-我在代码中写 `cookies[:user_name] = "david"` 那当我的浏览器关闭了，这个数据也就丢失了。
+那 session 的这个特点就很不适合用在做咱们这一集要实现的功能，remember me 。所以就要介绍一位新朋友 cookie 。跟 session 类似，cookie 的基本知识可以看看这里 <http://happypeter.github.io/tealeaf-http/book/http/3_stateful_web_applications.html>，基本上就是浏览器的一个功能，可以把服务器发过来的数据永久保留成一个我硬盘上的一个文件。另外，Rails 同样提供了一个方法叫 cookies 可以方便开发者操作 cookie 。参考 <http://api.rubyonrails.org/classes/ActionDispatch/Cookies.html>
 <!-- mac + chrome 试了一下，即使把浏览器彻底关掉，session[:user_id] 还是有的 -->
+<!-- 书上把 cookie 和 session 都叫 method -->
 
-但是如果写成 `cookies.permanent[:user_name] = "david"` 这样写过期时间是 20 年。
- `cookies` 中的数据会存放到到我的浏览器的 cookie 里，也就是保存到了我的硬盘上了，这就是为啥即使关机重启，这个信息也是可以保留住。
 
- 更多 `cookies` 这个方法的使用，参考 <http://api.rubyonrails.org/classes/ActionDispatch/Cookies.html>
 
- <!-- set a cookie in the code, show peoplw in browser inspector -->
-
- 关于 http cookie 到底是什么？参考 <http://happypeter.github.io/tealeaf-http/book/http/3_stateful_web_applications.html>
- 关于 Rails 中的 cookie 方法的具体讲解 <http://guides.rubyonrails.org/action_controller_overview.html>
 
 ### remember me
-http://railscasts.com/episodes/274-remember-me-reset-password
 
+添加 checkbox 的代码
+
+到 login.html.erb 中的提交按钮上方，添加
+
+{% highlight erb %}
+<dl class="form remember-me">
+  <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+  <%= label_tag :remember_me %>
+</dl>
+{% endhighlight %}
+
+
+user.css.scss 中要追加这些内容
+
+{% highlight sass %}
+.remember-me {
+  * {
+    width: auto;
+  }
+  #remember_me {
+    margin-left: 0;
+  }
+}
+{% endhighlight %}
+
+<!-- http://railscasts.com/episodes/274-remember-me-reset-password
+ -->
+
+### cookie
+
+<!-- set a cookie in the code, show peoplw in browser inspector -->
