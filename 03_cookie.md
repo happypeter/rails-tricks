@@ -88,7 +88,7 @@ end
 {% endhighlight %}
 
 来登录一下试试，如果勾选 “ remember me ”，这样到 chrome devtools -> Resources 标签下，可以看到 cookie 非让
-过期时间设置为 `session` ，反正如果勾选了，过期时间就是 20 年后了。
+过期时间设置为 `session` ，反正如果勾选了，过期时间就是 20 年后了，这些都是 [API 文档](http://api.rubyonrails.org/classes/ActionDispatch/Cookies.html) 上写得明明白白的。
 
 补充一个常用的小技巧，用户注册成功之后，让用户重新 login 一遍，显得有些麻烦，所以可以到 users_controller.rb
 的 create 方法中，`user.save` 语句之后添加
