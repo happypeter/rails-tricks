@@ -34,13 +34,21 @@ user.css.scss 中要追加这些内容
 <!-- http://railscasts.com/episodes/274-remember-me-reset-password
  -->
 
-### 为每个用户生成一个唯一的 token
+### 为每个用户生成一个唯一的 auth_token
 
 如果直接把用户的 id 存放到 cookie 中，这个就太容易被人伪造了，所以来为每一个用户生成一串随机数，用来代表他的身份吧。
+
+命令行执行：
+
+    cd meetup/
+    rails g migration AddAuthTokenToUsers auth_token:string
+    rake db:migrate
 
 user.rb 中，添加下面的代码，道理很简单，就是给每个用户生成一串不重复的随机数
 
 {% highlight ruby %}
+before_create { generate_token(:auth_token) }
+
 def generate_token(column)
   begin
     self[column] = SecureRandom.urlsafe_base64
@@ -48,7 +56,7 @@ def generate_token(column)
 end
 {% endhighlight %}
 
-如果数据库中又以前已经注册过的老用户，那没有 token 后面就会出问题，可以写个 rake task 来给他们都
+如果数据库中又以前已经注册过的老用户，那没有 auth_token 后面就会出问题，可以写个 rake task 来给他们都
 添加 token，但是这里我的数据库里也就只有一个用户了，直接到 console 中 destroy 了就行了。
 
 ### 相应的代码调整
@@ -79,4 +87,14 @@ def current_user
 end
 {% endhighlight %}
 
-<!-- set a cookie in the code, show peoplw in browser inspector -->
+来登录一下试试，如果勾选 “ remember me ”，这样到 chrome devtools -> Resources 标签下，可以看到 cookie 非让
+过期时间设置为 `session` ，反正如果勾选了，过期时间就是 20 年后了。
+
+补充一个常用的小技巧，用户注册成功之后，让用户重新 login 一遍，显得有些麻烦，所以可以到 users_controller.rb
+的 create 方法中，`user.save` 语句之后添加
+
+```ruby
+cookies[:auth_token] = user.auth_token
+```
+
+这样，用户注册结束后，也就直接登录进来了。
