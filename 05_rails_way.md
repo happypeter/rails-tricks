@@ -1,6 +1,6 @@
 ---
 layout: default
-title: The Rails Way
+title: i18n
 ---
 
 开发 web 应用是个复杂的过程，同一个功能实现方式很多，其实有时候仅仅是选择太多，就是报新手搞晕的一个原因。rails 有自己认为的一套“最优的做法”，这就是 The Rails Way 。
@@ -48,4 +48,3 @@ get '/about' => 'page#about'
 
 
 好，这一集就到这里。
-

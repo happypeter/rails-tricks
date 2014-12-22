@@ -52,8 +52,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">4</td>
       <td class="episode-title">
-        <a href="04_staticpage.html">
-          静态页面
+        <a href="04_validation.html">
+          表单验证
         </a>
       </td>
       <td class="episode-length">
@@ -63,8 +63,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">5</td>
       <td class="episode-title">
-        <a href="05_rails_way.html">
-          The Rails Way
+        <a href="05_i18n.html">
+          国际化
         </a>
       </td>
       <td class="episode-length">
