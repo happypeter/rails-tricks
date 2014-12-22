@@ -40,7 +40,14 @@ signup.html.erb
 
 <!-- 到这里就可以显示英文的报错信息了，如果覆盖默认的信息呢？ 下一集介绍-->
 
+common.css.scss 中 form 大括号里面添加
 
+```scss
+.error {
+  margin: 9px 0;
+  color: #DB8A14;
+}
+```
 
  自定义 validator 参考 [这里]（http://guides.rubyonrails.org/active_record_validations.html）
  的第6部分： Performing Custom Validations 。
