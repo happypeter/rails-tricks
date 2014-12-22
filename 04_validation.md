@@ -14,11 +14,6 @@ title: 表单验证
   -->
 
 
- 也有些方法在呼叫的时候是会跳过表单验证的，<http://guides.rubyonrails.org/active_record_validations.html> 的 1.3 部分有明确的列出。
-
- users#create 方法中要用实例变量，同时最后不能用 redirect_to 而要用 render
-
-
  ```ruby
  validates :name, :email, presence: true
  validates :name, :email, uniqueness: { case_sensitive: false }
@@ -26,9 +21,18 @@ title: 表单验证
 
 注意由于 password 部分的验证，has_secure_password 中已经定义过了，所以这里就不用写了
 
+进入 rails c 执行
 
-http://stackoverflow.com/questions/808547/fully-custom-validation-error-message-with-rails
+    u = User.new
+    u.save
+    u.errors.messages
 
+这样就知道有哪些报错信息可以用来在 view 文件中使用了。
+
+也有些方法在呼叫的时候是会跳过表单验证的，<http://guides.rubyonrails.org/active_record_validations.html> 的 1.3 部分有明确的列出。
+
+
+users#create 方法中要用实例变量，同时最后不能用 redirect_to 而要用 render
 
 signup.html.erb
 
@@ -44,7 +48,7 @@ common.css.scss 中 form 大括号里面添加
 
 ```scss
 .error {
-  margin: 9px 0;
+  margin: 5px 0 9px 0;
   color: #DB8A14;
 }
 ```

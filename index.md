@@ -74,8 +74,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">6</td>
       <td class="episode-title">
-        <a href="06_asset_pipeline.html">
-          Asset Pipeline
+        <a href="06_flash.html">
+          flash 信息显示
         </a>
       </td>
       <td class="episode-length">
