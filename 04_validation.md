@@ -15,8 +15,8 @@ title: 表单验证
 关键的一步是到 user.rb 中添加
 
 {% highlight ruby %}
- validates :name, :email, presence: true
- validates :name, :email, uniqueness: { case_sensitive: false }
+validates :name, :email, presence: true
+validates :name, :email, uniqueness: { case_sensitive: false }
 {% endhighlight %}
 
 注意由于 password 部分的验证，`has_secure_password` 中已经定义过了，所以这里就不用写了。
@@ -32,8 +32,6 @@ title: 表单验证
 也有些方法在呼叫的时候是会跳过表单验证的，<http://guides.rubyonrails.org/active_record_validations.html> 的 1.3 部分有明确的列出。
 
 ### controller 和 view 文件中相应的调整
-
-
 users_controller.rb 中的 create 方法需要调整，要用实例变量，同时最后不能用 redirect_to 而要用 render
 
 {% highlight ruby %}
@@ -59,7 +57,6 @@ users_controller.rb 中的 create 方法需要调整，要用实例变量，同�
 {% endhighlight %}
 
 其中 `:name` 字样会相应变成 `:email` ，`:password` ，`:password_confirmation`
-
 
 common.css.scss 中 form 大括号里面添加
 
