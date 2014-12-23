@@ -19,7 +19,7 @@ title: 表单验证
  validates :name, :email, uniqueness: { case_sensitive: false }
  ```
 
-注意由于 password 部分的验证，has_secure_password 中已经定义过了，所以这里就不用写了。
+注意由于 password 部分的验证，`has_secure_password` 中已经定义过了，所以这里就不用写了。
 
 进入 rails c 执行
 
@@ -72,6 +72,6 @@ common.css.scss 中 form 大括号里面添加
 
 这样就可以显示英文的报错信息了，如何显示中文，下一集介绍。
 
-### 自定义 validator 
-参考 [这里]（http://guides.rubyonrails.org/active_record_validations.html）
+### 自定义 validator
+参考 [这里](http://guides.rubyonrails.org/active_record_validations.html)
  的第6部分： Performing Custom Validations 。
