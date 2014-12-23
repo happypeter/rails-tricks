@@ -14,10 +14,10 @@ title: 表单验证
 
 关键的一步是到 user.rb 中添加
 
- ```ruby
+{% highlight ruby %}
  validates :name, :email, presence: true
  validates :name, :email, uniqueness: { case_sensitive: false }
- ```
+{% endhighlight %}
 
 注意由于 password 部分的验证，`has_secure_password` 中已经定义过了，所以这里就不用写了。
 
@@ -36,7 +36,7 @@ title: 表单验证
 
 users_controller.rb 中的 create 方法需要调整，要用实例变量，同时最后不能用 redirect_to 而要用 render
 
-```ruby
+{% highlight ruby %}
 -    user = User.new(user_params)
 -    user.save
 -    cookies[:auth_token] = user.auth_token
@@ -48,27 +48,27 @@ users_controller.rb 中的 create 方法需要调整，要用实例变量，同�
 +    else
 +      render :signup
 +    end
-```
+{% endhighlight %}
 
 这样就可以在 signup.html.erb 中适当显示报错信息了，每个 input 的下方都添加类似于下面的内容
 
-```erb
+{% highlight erb %}
 <% if @user.errors[:name].any? %>
 <dd class="error"><%= @user.errors[:name][0] %></dd>
 <% end %>
-```
+{% endhighlight %}
 
 其中 `:name` 字样会相应变成 `:email` ，`:password` ，`:password_confirmation`
 
 
 common.css.scss 中 form 大括号里面添加
 
-```scss
+{% highlight scss %}
 .error {
   margin: 5px 0 9px 0;
   color: #DB8A14;
 }
-```
+{% endhighlight %}
 
 这样就可以显示英文的报错信息了，如何显示中文，下一集介绍。
 

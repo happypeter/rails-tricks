@@ -1,1 +1,2 @@
 markdown: kramdown
+# redcarpet has problem handling 'user_controller.rb', underscore makes the font italic
