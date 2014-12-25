@@ -1,5 +1,10 @@
 
-
+.language-yaml .p-Indicator {
+  color: #e7be69; /* yellow */
+}
+.language-yaml .l-Scalar-Plain {
+  color: #a4c260; /* green */  
+}
 
 .highlight .sh {
   color: #a4c260;
