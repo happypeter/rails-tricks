@@ -24,7 +24,7 @@ title: 目录
         </a>
       </td>
       <td class="episode-length">
-        2 min
+        6 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -35,7 +35,7 @@ title: 目录
         </a>
       </td>
       <td class="episode-length">
-        3 min
+        5 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -46,7 +46,7 @@ title: 目录
         </a>
       </td>
       <td class="episode-length">
-        4 min
+        5 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -57,7 +57,7 @@ title: 目录
         </a>
       </td>
       <td class="episode-length">
-        7 min
+        5 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -68,7 +68,7 @@ title: 目录
         </a>
       </td>
       <td class="episode-length">
-        4 min
+        3 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -79,9 +79,10 @@ title: 目录
         </a>
       </td>
       <td class="episode-length">
-        7 min
+        3 min
       </td>
     </tr>
+    <!-- 前面几集的时间长度都核对过了 -->
     <tr class="episode-wrap">
       <td class="episode-index">7</td>
       <td class="episode-title">

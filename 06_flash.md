@@ -39,27 +39,8 @@ end
 这样，当登陆失败，页面重定向到 login 页面的时候，就可以显示信息了。但是点击任意链接到其他的页面中，
 flash 就被清空了，所以也就看不到信息了，这正是咱们期待的效果。但是如果用 session 接口，报错信息就会一直显示。
 
-### flash.now
 
-每次咱们用 redirect_to ，这样浏览器是会发出一个全新的请求，那么 flash 中的信息正好就可以在下一次请求中用到。
-但是，如果使用 render 来生成页面，这样就没有新的请求了，那么能不能显示 flash 信息呢？可以，用 `flash.now` 就行。
-
-例如在 users_controller.rb 的 create 方法中
-
-{% highlight ruby %}
-def create
-...
-  else
-+   flash.now.notice = "信息填写的有问题"
-    render :signup
-  end
-end
-{% endhighlight %}
-
-参考 [这里](http://guides.rubyonrails.org/action_controller_overview.html) 的 5.2.1 部分。
-
-
-### 美化一下
+### 美化一下 css
 
 生成阴影代码，可以使用这个 [小工具](http://www.cssmatic.com/box-shadow) 。
 
@@ -78,6 +59,8 @@ end
   box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
 }
 {% endhighlight %}
+
+### 自动隐藏
 
 下面来实现 flash 信息的自动消失。到 application.html.erb 中 `</body>` 的上面，添加
 
