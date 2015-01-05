@@ -15,8 +15,7 @@ title: flash
 实际操作来看一下。
 
 到 users_controller.rb 的 `create_login_session` 方法中，这里提一句，controller 里的一个方法，
-通常都对应一次请求动作，所以 rails 下通常英文叫做 action 。这里咱们给登陆成功和失败两种情况，都给出一定
-的反馈信息。
+通常都对应一次请求动作，所以 rails 下通常英文叫做 action 。这里咱们给登陆成功和失败两种情况，都给出反馈信息。
 
 {% highlight ruby %}
 + flash.notice = "登陆成功！"
@@ -27,9 +26,9 @@ else
 end
 {% endhighlight %}
 
-通过 flash 就可以把当前 action 中的信息传送给下一个 action 了。
+通过 flash 就可以把当前请求生成的信息传送给下一个请求了。
 
-到 application.html.erb 中添加
+为了显示 flash 信息，需要到 application.html.erb 中添加
 
 {% highlight erb %}
 <% if flash.notice %>
@@ -38,7 +37,7 @@ end
 {% endhighlight %}
 
 这样，当登陆失败，页面重定向到 login 页面的时候，就可以显示信息了。但是点击任意链接到其他的页面中，
-flash 就被清空了，所以也就看不到信息了，这正是咱们期待的效果。但是如果用 session 接口，就完蛋了。
+flash 就被清空了，所以也就看不到信息了，这正是咱们期待的效果。但是如果用 session 接口，报错信息就会一直显示。
 
 ### flash.now
 
