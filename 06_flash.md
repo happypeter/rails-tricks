@@ -3,10 +3,89 @@ layout: default
 title: flash
 ---
 
-显示 Login 失败信息。
+这次来显示 Login 失败信息。采用 flash 来实现，中文意思是“闪一下”。参考 [这里](http://guides.rubyonrails.org/action_controller_overview.html) 的 5.2 部分。
 
-是不是 session[:return_to] 也能放在这里聊？
+<!--  给出真正美观实用的 css 和 js 效果 -->
 
-http://guides.rubyonrails.org/i18n.html
-		
-		flash[:notice] = t(:hello_flash)
+### flash 和 session 这两个方法的区别
+
+`session[:xxx]` 中存储的数据会一直保留，直到你把网站关闭。而 `flash[:xxx]` 中存放的数据
+只是在你下一次请求中可以取得，然后就自动被清空了。
+
+实际操作来看一下，为什么使用 session 来传递反馈信息是不太合适的。
+
+到 users_controller.rb 的 `create_login_session` 方法中，这里提一句，controller 里的一个方法，
+通常都对应一次请求动作，所以 rails 下通常英文叫做 action 。这里咱们给登陆成功和失败两种情况，都给出一定
+的反馈信息。
+
+{% highlight ruby %}
++ flash.notice = "登陆成功！"
+  redirect_to :root
+else
++ flash.notice = "用户名密码错误!"
+  redirect_to :login
+end
+{% endhighlight %}
+
+通过 flash 就可以把当前 action 中的信息传送给下一个 action 了。
+
+到 application.html.erb 中添加
+
+{% highlight erb %}
+<% if flash.notice %>
+  <div class="notice"><%= flash.notice %></div>
+<% end %>
+{% endhighlight %}
+
+### flash.now
+
+每次咱们用 redirect_to ，这样浏览器是会发出一个全新的请求，那么 flash 中的信息正好就可以在下一次请求中用到。
+但是，如果使用 render 来生成页面，这样就没有新的请求了，那么能不能显示 flash 信息呢？可以，用 `flash.now` 就行。
+
+例如在 users_controller.rb 的 create 方法中
+
+{% highlight ruby %}
+def create
+...
+  else
++   flash.now.notice = "信息填写的有问题"
+    render :signup
+  end
+end
+{% endhighlight %}
+
+参考 [这里](http://guides.rubyonrails.org/action_controller_overview.html) 的 5.2.1 部分。
+
+
+### 美化一下
+
+生成阴影代码
+http://www.cssmatic.com/box-shadow
+
+{% highlight css %}
+#notice {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: teal;
+  color: white;
+  padding: 20px;
+  -webkit-box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
+  -moz-box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
+  box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
+}
+{% endhighlight %}
+
+自动消失。到 application.html.erb 中 `</body>` 的上面，添加
+
+{% highlight js %}
+<script>
+  $('.home-banner').anystretch();
+  var hideNotice = function(){
+      $(".notice").fadeOut("slow");
+  }
+  setTimeout(hideNotice, 4000);
+</script>
+{% endhighlight %}
+
+这里 `$('.home-banner').anystretch();` 只是在首页才会用到，可以用 content_for 重构一下
