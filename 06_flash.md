@@ -93,4 +93,6 @@ end
 {% endhighlight %}
 
 这样四秒钟后信息就自动消失了。
-<!-- 这里 `$('.home-banner').anystretch();` 只是在首页才会用到，可以用 content_for 重构一下 -->
+<!-- 这里 `$('.home-banner').anystretch();` 只是在首页才会用到，可以用 content_for 重构一下
+不过分页加载内容其实是挺麻烦的，所以如果不影响性能的话，还是不用为上策
+-->
