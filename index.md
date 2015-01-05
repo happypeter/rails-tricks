@@ -85,8 +85,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">7</td>
       <td class="episode-title">
-        <a href="07_keep_simple.html">
-          Keep it simple, Let it grow.
+        <a href="07_return_to.html">
+          登录后返回原来的页面
         </a>
       </td>
       <td class="episode-length">
