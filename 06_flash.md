@@ -66,7 +66,7 @@ end
 最终可以在 common.css.scss 中添加：
 
 {% highlight css %}
-#notice {
+.notice {
   position: absolute;
   bottom: 20px;
   right: 20px;
