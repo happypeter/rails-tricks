@@ -9,10 +9,10 @@ title: flash
 
 ### flash 和 session 这两个方法的区别
 
-`session[:xxx]` 中存储的数据会一直保留，直到你把网站关闭。而 `flash[:xxx]` 中存放的数据
-只是在你下一次请求中可以取得，然后就自动被清空了。
+`session[:xxx]` 中存储的数据会一直保留，直到你把网站关闭。而 `flash[:xxx]` 中存放的数据只是在
+你下一次请求中可以取得，然后就自动被清空了。
 
-实际操作来看一下，为什么使用 session 来传递反馈信息是不太合适的。
+实际操作来看一下。
 
 到 users_controller.rb 的 `create_login_session` 方法中，这里提一句，controller 里的一个方法，
 通常都对应一次请求动作，所以 rails 下通常英文叫做 action 。这里咱们给登陆成功和失败两种情况，都给出一定
@@ -37,6 +37,9 @@ end
 <% end %>
 {% endhighlight %}
 
+这样，当登陆失败，页面重定向到 login 页面的时候，就可以显示信息了。但是点击任意链接到其他的页面中，
+flash 就被清空了，所以也就看不到信息了，这正是咱们期待的效果。但是如果用 session 接口，就完蛋了。
+
 ### flash.now
 
 每次咱们用 redirect_to ，这样浏览器是会发出一个全新的请求，那么 flash 中的信息正好就可以在下一次请求中用到。
@@ -59,8 +62,9 @@ end
 
 ### 美化一下
 
-生成阴影代码
-http://www.cssmatic.com/box-shadow
+生成阴影代码，可以使用这个 [小工具](http://www.cssmatic.com/box-shadow) 。
+
+最终可以在 common.css.scss 中添加：
 
 {% highlight css %}
 #notice {
@@ -76,7 +80,7 @@ http://www.cssmatic.com/box-shadow
 }
 {% endhighlight %}
 
-自动消失。到 application.html.erb 中 `</body>` 的上面，添加
+下面来实现 flash 信息的自动消失。到 application.html.erb 中 `</body>` 的上面，添加
 
 {% highlight js %}
 <script>
@@ -88,4 +92,5 @@ http://www.cssmatic.com/box-shadow
 </script>
 {% endhighlight %}
 
-这里 `$('.home-banner').anystretch();` 只是在首页才会用到，可以用 content_for 重构一下
+这样四秒钟后信息就自动消失了。
+<!-- 这里 `$('.home-banner').anystretch();` 只是在首页才会用到，可以用 content_for 重构一下 -->
