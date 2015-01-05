@@ -13,7 +13,7 @@ title: 目录
         </a>
       </td>
       <td class="episode-length">
-        4 min
+        x min
       </td>
     </tr>
     <tr class="episode-wrap">
