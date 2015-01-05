@@ -85,10 +85,10 @@ end
 {% highlight js %}
 <script>
   $('.home-banner').anystretch();
-  var hideNotice = function(){
-      $(".notice").fadeOut("slow");
-  }
-  setTimeout(hideNotice, 4000);
++ var hideNotice = function(){
++     $(".notice").fadeOut("slow");
++ }
++ setTimeout(hideNotice, 4000);
 </script>
 {% endhighlight %}
 
