@@ -3,18 +3,22 @@ layout: default
 title: 评论功能重构
 ---
 
+这一集里来重构评论功能，为了能发评论，首先要有一个新活动。
 
-先来创建一个新的活动。
+来创建一个新的活动。 Oops...新活动的时间有问题，显示
 
-这样新活动的时间有问题，显示 ` translation missing: zh-CN.datetime.distance_in_words.less_than_x_minutes ago`
+    translation missing: zh-CN.datetime.distance_in_words.less_than_x_minutes ago
 
-可以到 [rails-i18n](https://github.com/svenfuchs/rails-i18n) 项目的页面，敲 `t` 然后输入 `zh-C...` 就可以找到中文本地化文件了，把 `datetime` 部分拷贝到项目中。然后用 sublime 的 `find in folder` 的功能，把 `ago`
-替换成“前”，这样时间显示就正常了。
+可以这样来解决。到 [rails-i18n](https://github.com/svenfuchs/rails-i18n) 项目的页面，敲 `t` 然后输入 `zh-C...` 就可以找到中文本地化文件了，把 `datetime` 部分拷贝到项目中。然后用 sublime 的 `find in folder` 的功能，把 `ago`
+替换成 `前` ，这样时间显示就正常了。
 
-### 评论框
+下面言归正传，来瞄准评论功能。
 
-现在有了用户登录进来了，所以评论框这里根本也不需要输入用户名和邮箱了，来看看这部分应该怎么重构。
-首先考虑数据表结构，现在有了专门的 users 表来存放用户信息，那么原来存放在 comments 表记录中的
+### 重构数据表 comments
+
+现在有了用户登录进来了，所以评论框这里不需要输入用户名和邮箱了，来看看这部分应该怎么重构。
+首先考虑数据表结构，现在有了专门的 users 表来存放用户信息，那么原来存放在 comments 表，
+查看 schema.rb，中的
 
     t.string   "username"
     t.string   "email"
@@ -30,12 +34,55 @@ title: 评论功能重构
 {% highlight ruby %}
 class ChangeThingsInComments < ActiveRecord::Migration
   def change
-    add_column :comments, :user_id, :string
+    add_column :comments, :user_id, :integer
     remove_column :comments, :username
     remove_column :comments, :email
   end
 end
 {% endhighlight %}
 
+注：上面的语法也不唯一，可以参考 [Miagration 的文档](http://guides.rubyonrails.org/active_record_migrations.html) 。
 
 运行 `bundle exec rake db:migrate`，然后再来查看 schema.rb 文件就可以看到 comments 表结构已经修改成功。
+
+comments 表中有了 user_id 这个字段，就可以在 users 和 comments 表之间建立一对多关系了。需要做的是
+到 user.rb 中添加
+
+{% highlight ruby %}
+has_many :comments
+{% endhighlight %}
+
+然后到 comment.rb 中添加
+
+{% highlight ruby %}
+belongs_to :user
+{% endhighlight %}
+
+这样就可以使用 `@comment.user.name` 这样的语法了。
+
+### 更改 form
+
+route.rb 中需要
+
+{% highlight ruby %}
+resources :comments, only: [:create]
+{% endhighlight %}
+
+
+comments_controller.rb 中，把原有内容改为下面内容：
+
+{% highlight ruby %}
+def create
+  c = Comment.new(comment_params)
+  c.save
+  redirect_to c.issue
+end
+
+private
+  def comment_params
+    params.require(:comment).permit(:issue_id, :user_id, :content)
+  end
+{% endhighlight %}
+
+这样评论就可以成功提交了。直接在 `Comment.new` 中使用 `params[:comment]` 会触发 Rails 的 Strong Parameters 的
+保护机制。通过下面定义 `comment_params` 的方式，Rails 让我自己手动列出允许存入的数据的白名单，这样就避免了危险。
