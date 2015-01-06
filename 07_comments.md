@@ -62,12 +62,48 @@ belongs_to :user
 
 ### 更改 form
 
+user.rb 中要添加
+
+{% highlight ruby %}
+def avatar
+  gravatar_id = Digest::MD5.hexdigest(self.email.downcase) if self.email
+  "http://gravatar.com/avatar/#{gravatar_id}.png?s=512&d=retro"
+end
+{% endhighlight %}
+
+这样 comment.rb 中的这些代码就可以删除了
+
+{% highlight ruby %}
+def user_avatar
+  gravatar_id = Digest::MD5.hexdigest(self.email.downcase)
+  "http://gravatar.com/avatar/#{gravatar_id}.png?s=512&d=retro"
+end
+{% endhighlight %}
+
 route.rb 中需要
 
 {% highlight ruby %}
 resources :comments, only: [:create]
 {% endhighlight %}
 
+
+`_comment_box.html.erb` 中原来那个表单不要了，改成
+
+{% highlight erb %}
+<%= form_for(Comment.new(:issue_id => issue.id, :user_id => current_user.id)) do |f| %>
+  <%= f.hidden_field :issue_id %>
+  <%= f.hidden_field :user_id  %>
+  <%= f.text_area :content %>
+  <%= submit_tag '提交评论', class: 'btn btn-primary btn-submit' %>
+<% end %>
+{% endhighlight %}
+
+头像部分也要稍作调整
+
+{% highlight erb %}
+-      <%= image_tag "default_avatar.png", class: "image-circle" %>
++      <img src=<%= current_user.avatar %> alt="" class="image-circle">
+{% endhighlight %}
 
 comments_controller.rb 中，把原有内容改为下面内容：
 
@@ -86,3 +122,15 @@ private
 
 这样评论就可以成功提交了。直接在 `Comment.new` 中使用 `params[:comment]` 会触发 Rails 的 Strong Parameters 的
 保护机制。通过下面定义 `comment_params` 的方式，Rails 让我自己手动列出允许存入的数据的白名单，这样就避免了危险。
+
+### 更改评论列表
+
+_comment_list.html.erb 中也要做调整
+
+{% highlight erb %}
+- <%= image_tag c.user_avatar, class: 'image-circle' %>
++ <%= image_tag c.user.avatar, class: 'image-circle' %>
+...
+- <h5 class="name"><%= link_to c.username, "#" %></h5>
++ <h5 class="name"><%= link_to c.user.name, "#" %></h5>
+{% endhighlight %}
