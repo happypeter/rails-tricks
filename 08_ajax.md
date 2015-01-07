@@ -7,11 +7,11 @@ title: 评论提交 ajax 化
 
 ### 更改前端 html
 
-前端最关键的一步就是添加 `remote: 'true'` 。到 _comment_box.html.erb 中
+前端最关键的一步就是添加 `remote: true` 。到 _comment_box.html.erb 中
 
 {% highlight erb %}
 - <%= form_for(Comment.new(:issue_id => issue.id, :user_id => current_user.id)) do |f| %>
-+ <%= form_for(Comment.new(:issue_id => issue.id, :user_id => current_user.id), remote: 'true') do |f| %>
++ <%= form_for(Comment.new(:issue_id => issue.id, :user_id => current_user.id), remote: true) do |f| %>
 {% endhighlight %}
 
 这样转换成的 html 其实变化不大，就是多了 `data-remote="true"` 这几个字，但是注意在 application.js 文件中
