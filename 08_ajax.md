@@ -88,4 +88,8 @@ $(".reply textarea").val('');
 
 ### devtools 中的调试技巧
 
-http://happycasts.net/episodes/107
+如果不小心敲错了 ruby 代码，比如 create.js 中把 `render` 写成了 `rennder` 那么点击”发布评论“按钮是看不到报错信息的。
+可以打开 devtools -> console 这里可以看到一个 500 的错误。具体的错误内容可以到 network 下面，再次提交以下评论，就能看到了。
+
+但是如果是 js 代码敲错了，比如 `append` 敲成了 `apppend`，这样是没有任何报错信息的，但是依然可以到 network 下面，再次
+提交评论，把返回的 js 代码，自己放到 console 中执行一下，这样错误就比较明显了。
