@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 数据的仓库
+title: 评论提交快捷键和 atwho
 ---
 前面把要展示的数据都放在了 controller 里，肯定不是长久之计。那来欢迎今天的重量级嘉宾吧，数据库 mysql 。
 
