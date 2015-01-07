@@ -38,3 +38,17 @@ issues/show.html.erb 的末尾添加
 [jquery.hotkeys](https://github.com/jeresig/jquery.hotkeys) 是一个 js 库，[相应的 gem](https://github.com/derekprior/jquery-hotkeys-rails) 有一年多没更新了，所以还是直接把 js 添加进源码吧。
 
 下载 [这个文件](https://raw.githubusercontent.com/jeresig/jquery.hotkeys/master/jquery.hotkeys.js) 放到 app/assets/javascript/vendor/ 目录下，然后在 application.js 中添加 `//= require vendor/jquery.hotkeys` (同样是要放在 `require jquery` 之后 ) 。
+
+
+{% highlight js %}
+<script>
+  $(".reply textarea#comment_content").keydown(function(e) {
+    if ((e.ctrlKey||e.metaKey)&& e.keyCode == 13) {
+      $(".reply input[type=submit]").click();
+    }
+  });
+</script>
+{% endhighlight %}
+
+`13` 对应回车键，`ctrKey` 对应 ctrl，`metaKey` 在 Mac 下对应 Command 键， Windows 下应该对应 Window 键。
+到 [源码](https://github.com/jeresig/jquery.hotkeys/blob/master/jquery.hotkeys.js) 中可以看到更多的键值。
