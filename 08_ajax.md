@@ -60,7 +60,7 @@ _comment.html.erb ，然后里面的内容做出下面的调整。
 
 {% highlight erb %}
 <% @comments.each do |c| %>
-  <%= render partial: 'shared/comment', locals: {comment: c} %>
+  <%= render partial: 'shared/comment', locals: {c: c} %>
 <% end %>
 {% endhighlight %}
 
