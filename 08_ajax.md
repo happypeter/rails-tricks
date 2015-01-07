@@ -51,7 +51,7 @@ end
 $(".replies").append("<%= j render(partial: 'shared/comment', locals: {c: @comment}) %>");
 {% endhighlight %}
 
-注意： `append()` 括号的内容，外面用双引号，里面有单引号。不要同时都用单引号或是双引号。
+注意： `append()` 括号的内容，外面用双引号，里面单引号。不要同时都用单引号或是双引号。
 另外，这里的 `j` 是 `escape_javascript` 的简写形式。目的是把 partial 中的引号和回车进行转义，否则 render 出来的
 内容直接放到 create.js 中就会造成 js 的代码错误了。
 
