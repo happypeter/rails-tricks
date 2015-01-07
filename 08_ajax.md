@@ -48,7 +48,7 @@ end
 
 我想要放到 create.js 中的是大概这些内容：
 {% highlight erb %}
-$(".replies").append("<%= j render 'shared/comment', locals: {comment: @comment} %>");
+$(".replies").append("<%= j render(partial: 'shared/comment', locals: {c: @comment}) %>");
 {% endhighlight %}
 
 注意： `append()` 括号的内容，外面用双引号，里面有单引号。不要同时都用单引号或是双引号。
