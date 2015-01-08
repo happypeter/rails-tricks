@@ -73,7 +73,7 @@ application.js 中来添加
 下载 [这个文件](https://raw.githubusercontent.com/jeresig/jquery.hotkeys/master/jquery.hotkeys.js) 放到 app/assets/javascript/vendor/ 目录下，然后在 application.js 中添加
 
 {% highlight js %}
-//= require vendor/jquery.hotkeys`
+//= require vendor/jquery.hotkeys
 {% endhighlight %}
 
 同样是要放在 `require jquery` 之后。
