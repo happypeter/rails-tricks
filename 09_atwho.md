@@ -57,7 +57,7 @@ application.js 中来添加
 {% highlight js %}
 <script>
   var commenter_exist = [];
-  $('.reply .heading a').each(function() {
+  $('.reply .name a').each(function() {
     if($.inArray($(this).text(), commenter_exist) < 0) {
       commenter_exist.push($(this).text());
     }
