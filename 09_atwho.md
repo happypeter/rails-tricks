@@ -3,17 +3,14 @@ layout: default
 title: 评论提交 hotkeys 和 atwho
 ---
 
-在 github issue 这里发评论，有两个功能其实是挺诱人的。第一个就是如果敲 `@`，后面可以自动补全参与讨论的用户名。第二个
-我觉得每天也实在离不了的功能是，发评论的时候，我不用再去找鼠标点发布按钮，而是可以顺手一个 Cmd+Enter 就搞定了。这里，
-咱俩也来做做这两个小而美的功能。
+在 github issue 这里发评论，有两个功能每天实在离不了。第一个就是如果敲 `@`，后面可以自动补全参与讨论的用户名。第二个是，发评论的时候，我不用再去伸手够鼠标点发布按钮，而是可以顺手一个 Cmd+Enter 就搞定了。这里， 咱俩也来做做这两个小而美的功能。
 
 ### Css Fix
 
-不过，先来看看这个评论框，输入框和按钮总会出现蓝边，这个不太好看。有经验的前端会一眼看出问题所在。现在假设
-咱们不知道发生了什么，看看如何来自己定位这个问题。
+不过，先来看看这个评论框，输入框和按钮总会出现蓝边，这个不太好看。有经验的前端会一眼看出问题所在。现在假设咱们不知道发生了什么，看看如何来自己定位这个问题。
 
 首先来看到底是哪个状态下会出现蓝边呢？打开 devtools，选中这个 element，点击右侧的小箭头，试一下。发现是 `:focus`
-这个状态的时候会有蓝边。对应的 css 是浏览器默认的 `outline:xxx` 。
+这个状态的时候会有蓝边。对应的 css 是浏览器自动生成的 `outline:xxx` 。
 
 这样，解决方法就简单了，就是到 common.css.scss 中的 form 样式的花括号内部，添加
 
@@ -79,7 +76,7 @@ application.js 中来添加
 //= require vendor/jquery.hotkeys`
 {% endhighlight %}
 
-同样是要放在 `require jquery` 之后  。
+同样是要放在 `require jquery` 之后。
 
 到 _comment_box.html.erb 的末尾添加
 
@@ -95,3 +92,5 @@ application.js 中来添加
 
 `13` 对应回车键，`ctrKey` 对应 ctrl，`metaKey` 在 Mac 下对应 Command 键， Windows 下应该对应 Window 键。
 到 [源码](https://github.com/jeresig/jquery.hotkeys/blob/master/jquery.hotkeys.js) 中可以看到更多的键值。
+
+好，这一集就是这些了，休息，休息一会。
