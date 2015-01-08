@@ -33,13 +33,29 @@ form {
 
 需要用到 [jquery-atwho-rails gem](https://github.com/ichord/jquery-atwho-rails) 。
 
-Gemfile 中添加 `gem 'jquery-atwho-rails'`，不要忘记运行 bundle 命令来安装。
+Gemfile 中添加
 
-application.js 中来添加 `//= require jquery.atwho` 当然是应该在 jquery 加载之后的位置。
+{% highlight ruby %}
+gem 'jquery-atwho-rails'
+{% endhighlight %}
 
-如果你发现 css 看起来很乱，那一定是忘了在 application.css 中添加 ` *= require jquery.atwho` 。
+不要忘记运行 bundle 命令来安装。
 
-issues/show.html.erb 的末尾添加
+application.js 中来添加
+
+{% highlight js %}
+//= require jquery.atwho
+{% endhighlight %}
+
+当然是应该在 jquery 加载之后的位置。
+
+如果你发现 css 看起来很乱，那一定是忘了在 application.css 中添加
+
+{% highlight css %}
+*= require jquery.atwho`
+{% endhighlight %}
+
+关键的一步，到 issues/show.html.erb 的末尾添加
 
 {% highlight js %}
 <script>
@@ -52,7 +68,6 @@ issues/show.html.erb 的末尾添加
   $('textarea').atwho({ at: "@", 'data': commenter_exist });
 </script>
 {% endhighlight %}
-
 
 ### 快捷键
 
