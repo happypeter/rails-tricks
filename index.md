@@ -109,7 +109,7 @@ title: 目录
       <td class="episode-index">9</td>
       <td class="episode-title">
         <a href="09_atwho.html">
-          评论提交快捷键和 atwho
+          评论提交 hotkeys 和 atwho
         </a>
       </td>
       <td class="episode-length">
