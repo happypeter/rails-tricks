@@ -49,7 +49,7 @@ application.js 中来添加
 如果你发现 css 看起来很乱，那一定是忘了在 application.css 中添加
 
 {% highlight css %}
-*= require jquery.atwho`
+*= require jquery.atwho
 {% endhighlight %}
 
 关键的一步，到 issues/show.html.erb 的末尾添加
