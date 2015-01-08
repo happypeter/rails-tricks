@@ -52,7 +52,7 @@ application.js 中来添加
 *= require jquery.atwho
 {% endhighlight %}
 
-关键的一步，到 issues/show.html.erb 的末尾添加
+关键的一步，到  _comment_box.html.erb 的末尾添加
 
 {% highlight js %}
 <script>
