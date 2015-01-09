@@ -8,7 +8,7 @@ title:  Markdown 格式化内容
 
 ### 使用 Redcarpet
 
-首先在 Gemfile 中添加
+首先在 Gemfile 中添加 [redcarpet](https://github.com/vmg/redcarpet)
 
 {% highlight ruby %}
 gem 'redcarpet'
@@ -54,7 +54,7 @@ end
 
 ### 用 pygment 实现代码高亮
 
-Gemfile 中添加
+Gemfile 中添加 [pygemnt.rb](https://github.com/tmm1/pygments.rb)
 
 {% highlight ruby %}
 gem 'pygment.rb'
