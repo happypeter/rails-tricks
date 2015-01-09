@@ -124,14 +124,14 @@ title: 目录
         </a>
       </td>
       <td class="episode-length">
-        x min
+        4 min
       </td>
     </tr>
     <tr class="episode-wrap">
       <td class="episode-index">11</td>
       <td class="episode-title">
-        <a href="11_ear.html">
-          网站的耳朵
+        <a href="11_404.html">
+          404页面
         </a>
       </td>
       <td class="episode-length">
@@ -141,8 +141,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">12</td>
       <td class="episode-title">
-        <a href="12_beauty.html">
-          Code Beauty
+        <a href="12_author.html">
+          基本权限控制
         </a>
       </td>
       <td class="episode-length">
@@ -152,8 +152,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">13</td>
       <td class="episode-title">
-        <a href="13_comment.html">
-          添加评论
+        <a href="13_vps.html">
+          服务器配置
         </a>
       </td>
       <td class="episode-length">
@@ -163,7 +163,29 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">14</td>
       <td class="episode-title">
-        <a href="14_goodbye.html">
+        <a href="14_deployment.html">
+          部署项目
+        </a>
+      </td>
+      <td class="episode-length">
+        x min
+      </td>
+    </tr>
+    <tr class="episode-wrap">
+      <td class="episode-index">15</td>
+      <td class="episode-title">
+        <a href="14_email.html">
+          Email
+        </a>
+      </td>
+      <td class="episode-length">
+        x min
+      </td>
+    </tr>
+    <tr class="episode-wrap">
+      <td class="episode-index">16</td>
+      <td class="episode-title">
+        <a href="16_goodbye.html">
           Until Next Time, Goodbye!
         </a>
       </td>
