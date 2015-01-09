@@ -18,9 +18,16 @@ bundle 一下，可以看到 Gemfile 中安装的版本是 3.2.0 。未来如果
 
 再到 _comment.html.erb 中来使用一下
 
-{% highlight ruby %}
+{% highlight erb %}
 - <%= c.content %>
 + <%= markdown(c.content) %>
+{% endhighlight %}
+
+issues/show.html.erb 中的活动内容也做相同对待
+
+{% highlight erb %}
+- <%= @issue.content %>
+- <%= markdown(@issue.content) %>
 {% endhighlight %}
 
 需要到 application_helper.html.erb 中来定义 markdown
