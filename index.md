@@ -119,8 +119,8 @@ title: 目录
     <tr class="episode-wrap">
       <td class="episode-index">10</td>
       <td class="episode-title">
-        <a href="10_crud.html">
-          瞄准一个东东来 CRUD
+        <a href="10_markdown.html">
+          Markdown 格式化内容
         </a>
       </td>
       <td class="episode-length">
