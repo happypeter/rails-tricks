@@ -3,7 +3,7 @@ layout: default
 title:  Markdown 格式化内容
 ---
 
-开发过程就是不断解决实际使用中的痛苦的过程。来看看评论的功能，如果发布的内容我想加一个空行，但是实际输出还是会在一段之中。所以来看看咱们添加 [Markdown](https://help.github.com/articles/github-flavored-markdown/) 格式的支持。
+开发过程就是不断解决实际使用中的痛苦的过程。来看看评论的功能，如果发布的内容我想加一个空行，但是实际输出还是会在一段之中。所以来添加 [Markdown](https://help.github.com/articles/github-flavored-markdown/) 格式的支持。
 
 
 ### 使用 Redcarpet
