@@ -71,3 +71,38 @@ def markdown(text)
   ...
 end
 {% endhighlight %}
+
+
+### 添加 css
+
+创建一个新文  app/assets/stylesheets/sections/pygment.css.erb
+
+{% highlight erb %}
+<%= Pygments.css(:style => "monokai") %>
+{% endhighlight %}
+
+接下来，需要调整一下评论框的 css 来让整个显示的漂亮一点，参考 [laracasts forum](https://laracasts.com/discuss/channels/general-discussion/laravel-5-password-reset-subject)
+
+issue_show.css.scss 中
+
+{% highlight scss %}
+.body {
+- padding: 15px;
++ padding: 15px 40px 10px 40px;
+  .highlight {
+    margin-top: 15px;
+    background: #2D3037;
+    padding: 20px 40px;
+    margin-left: -40px;
+    margin-right: -40px;
+  }
+  textarea {
+    border: none;
+    height: 230px;
+    margin-top: -20px;
+  }
+}
+{% endhighlight %}
+
+
+这样就可以了。
