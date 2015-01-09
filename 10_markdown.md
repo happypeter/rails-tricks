@@ -92,9 +92,12 @@ issue_show.css.scss 中
   .highlight {
     margin-top: 15px;
     background: #2D3037;
-    padding: 20px 40px;
+    padding: 5px 40px;
     margin-left: -40px;
     margin-right: -40px;
+    pre {
+      margin-top: 9px;
+    }
   }
   textarea {
     border: none;
