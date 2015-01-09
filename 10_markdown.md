@@ -82,7 +82,7 @@ end
 
 ### 添加 css
 
-创建一个新文  app/assets/stylesheets/sections/pygment.css.erb
+创建一个新文  app/assets/stylesheets/shared/pygment.css.erb
 
 {% highlight erb %}
 <%= Pygments.css(:style => "monokai") %>
