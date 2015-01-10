@@ -13,7 +13,7 @@ title: by @happypeter
         </a>
       </td>
       <td class="episode-length">
-        x min
+        3 min
       </td>
     </tr>
     <tr class="episode-wrap">

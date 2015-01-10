@@ -49,6 +49,7 @@ flash 就被清空了，所以也就看不到信息了，这正是咱们期待�
 {% highlight css %}
 .notice {
   position: absolute;
+  z-index: 1000;
   bottom: 20px;
   right: 20px;
   background: teal;
