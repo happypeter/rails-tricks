@@ -153,7 +153,7 @@ title: 目录
       <td class="episode-index">13</td>
       <td class="episode-title">
         <a href="13_vps.html">
-          服务器配置
+          购买服务器和域名绑定
         </a>
       </td>
       <td class="episode-length">
