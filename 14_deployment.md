@@ -1,7 +1,20 @@
 ---
 layout: default
-title: Until next time, Goodbye!
+title: 部署项目
 ---
+
+
+
+### 安装 nginx
+
+Install Phusion's PGP key to verify packages
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+Add HTTPS support to APT
+
+sudo apt-get install apt-transport-https ca-certificates
+
+
 
 ### recap 一下
 回顾一下 Rails 10 日谈，到底都做了哪些内容。你和我一起实现了一个真正的 Web App，虽然局部的功能还是可以进一步增强。
