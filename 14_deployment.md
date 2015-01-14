@@ -5,7 +5,7 @@ title: 部署项目
 
 ### 创建用户
 
-adduser peter --ingroup sudo
+    adduser peter --ingroup sudo
 
 ### 安装 ruby
 
@@ -30,21 +30,40 @@ adduser peter --ingroup sudo
 
 install mysql
 
-    sudo apt-get install mysql-server  mysql-client  libmysqlclient-dev
+      sudo apt-get install mysql-server  mysql-client  libmysqlclient-dev
 
 
 ### 安装 nginx
 
-Install Phusion's PGP key to verify packages
+安装需要的密钥：
+
+<!-- Phusion's PGP key to verify packages -->
 
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
 
-Add HTTPS support to APT
+
+让 apt-get 支持 https
 
     sudo apt-get install apt-transport-https ca-certificates
     sudo add-apt-repository 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main'
     sudo apt-get update
+
+安装 nginx 和 passenger，注意这样安装，就不用执行 `passenger-install-nginx-module` 了
+
     sudo apt-get install nginx-extras passenger
 
 
-<!-- 51 haoqicat/ 214 happycasts 服务器上目前就就是安装了 nginx -->
+### 部署
+
+    cd meetup/
+    bundle
+
+    cd config
+    cp database.example.yml database.yml
+    bundle exec rake db:create RAILS_ENV=production
+    touch tmp/restart.txt
+
+    bundle exec rake db:migrate RAILS_ENV=production
+    bundle exec rake assets:precompile RAILS_ENV=production
+    # precompile 这一句如果不加 RAILS_ENV 设置还是会有问题的，font-awesome 字体文件加载不了
+    mysql -uroot -p111111 happycasts_production<happycasts_production.sql
