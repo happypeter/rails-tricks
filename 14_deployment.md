@@ -53,17 +53,31 @@ install mysql
     sudo apt-get install nginx-extras passenger
 
 
+   gem install bundler
+   rbenv rehash
+
+   sudo apt-get install nodejs
+
+
+
+
 ### 部署
+
+clone 代码之前需要先把 ssh key 上传到 github 网站上，不然没有办法 clone
 
     cd meetup/
     bundle
 
     cd config
     cp database.example.yml database.yml
-    bundle exec rake db:create RAILS_ENV=production
+    bundle exec rake db:create db:migrate RAILS_ENV=production
     touch tmp/restart.txt
 
-    bundle exec rake db:migrate RAILS_ENV=production
     bundle exec rake assets:precompile RAILS_ENV=production
     # precompile 这一句如果不加 RAILS_ENV 设置还是会有问题的，font-awesome 字体文件加载不了
-    mysql -uroot -p111111 happycasts_production<happycasts_production.sql
+
+
+### 导入老数据
+
+mysql -uroot -p111111 happycasts_production<happycasts_production.sql
+ERROR 1064 (42000) at line 379: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''20' at line 1
