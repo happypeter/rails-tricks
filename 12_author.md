@@ -8,8 +8,7 @@ title: 权限控制
 这方面会很复杂，有用户的身份有很多，网站可以执行的操作也可能有很多。不过这一集里，咱们也就算在 authorization 这个角度来开个头，只是区分
 最简单的两种用户身份，一种是已经登录用户，另一种是未登录用户，看看如何给他们赋予不同的操作权限。
 
-### 创建新活动按钮
-
+### 登录后才能创建新活动
 
 点击首页的发布新活动按钮，如果用户没有登录，则给出一个 flash 来，需要的代码调整是在 issues_controller.rb 中，把原有的 new 动作改成
 
@@ -26,10 +25,7 @@ end
 {% endhighlight %}
 
 
-
-### 隐藏评论框
-
-退出登录条件下再来访问一个活动的展示页面就会报错。这是因为在评论框的代码中用到了 current_user 。解决方法是到
+隐藏评论框。 退出登录条件下再来访问一个活动的展示页面就会报错。这是因为在评论框的代码中用到了 current_user 。解决方法是到
 issues/show.html.erb 中
 
 {% highlight erb %}
@@ -41,7 +37,7 @@ issues/show.html.erb 中
 {% endhighlight %}
 
 
-### 只有 issue 发布者自己可以修改
+### 重构 issue
 
 需要用到 `@issue.user` 所以先要来添加这两个资源的一对多关系。
 
@@ -76,7 +72,7 @@ belongs_to :user
 {% highlight erb %}
 -     <%= form_for issue do |f| %>
 +     <%= form_for(Issue.new(user_id: current_user.id)) do |f| %>
-+      <%= f.hidden_field :user_id %>
++       <%= f.hidden_field :user_id %>
 {% endhighlight %}
 
 原先创建的 issue 肯定是没有 user_id 的，所以都删除了，重新创建。
@@ -111,15 +107,17 @@ issues/show.html.erb 中也是一样的
 {% endhighlight %}
 
 
+### 只有作者本人可以修改 issue
+
 需要把 issues/show.html.erb 中的 edit 和 destroy 按钮对作者外的其他所有人隐藏，所以做如下的代码调整
 
 {% highlight erb %}
 -    <%= link_to 'Destroy', issue_path(@issue), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
 -    <%= link_to 'edit', edit_issue_path(@issue), class: "btn btn-primary" %>
-+    <% if current_user && current_user.name == @issue.user.name %>
++    <% if current_user && current_user == @issue.user %>
 +      <%= link_to 'Destroy', issue_path(@issue), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
 +      <%= link_to 'edit', edit_issue_path(@issue), class: "btn btn-primary" %>
 +    <% end %>
 {% endhighlight %}
 
-更多关于权限控制的技巧，可以查看 railscasts.com 的 [authorization 标签](http://railscasts.com/?tag_id=26)。
+OK，更多关于权限控制的技巧，可以查看 railscasts.com 的 [authorization 标签](http://railscasts.com/?tag_id=26)。
