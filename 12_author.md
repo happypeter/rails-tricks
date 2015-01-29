@@ -70,7 +70,6 @@ belongs_to :user
 {% endhighlight %}
 
 
-
 现在的问题 issue#new 和 #edit 中目前是复用的一个 partial，但是现在 new 中需要把 user_id 作为 hidden_field 传递过去，所以把 _form.html.erb 中
 的内容拷贝到 issues/new.html.erb 中，然后做如下调整
 
@@ -109,6 +108,18 @@ issues/show.html.erb 中也是一样的
 +  <%= image_tag @issue.user.avatar, class: "image-circle" %>
 -  <h5 class="name"><a href="#">happypeter</a></h5>
 +  <h5 class="name"><%= link_to @issue.user.name, "#" %></h5>
+{% endhighlight %}
+
+
+需要把 issues/show.html.erb 中的 edit 和 destroy 按钮对作者外的其他所有人隐藏，所以做如下的代码调整
+
+{% highlight erb %}
+-    <%= link_to 'Destroy', issue_path(@issue), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
+-    <%= link_to 'edit', edit_issue_path(@issue), class: "btn btn-primary" %>
++    <% if current_user && current_user.name == @issue.user.name %>
++      <%= link_to 'Destroy', issue_path(@issue), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
++      <%= link_to 'edit', edit_issue_path(@issue), class: "btn btn-primary" %>
++    <% end %>
 {% endhighlight %}
 
 更多关于权限控制的技巧，可以查看 railscasts.com 的 [authorization 标签](http://railscasts.com/?tag_id=26)。
