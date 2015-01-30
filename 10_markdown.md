@@ -27,10 +27,10 @@ issues/show.html.erb 中的活动内容也做相同对待
 
 {% highlight erb %}
 - <%= @issue.content %>
-- <%= markdown(@issue.content) %>
++ <%= markdown(@issue.content) %>
 {% endhighlight %}
 
-需要到 application_helper.html.erb 中来定义 markdown
+需要到 application_helper.rb 中来定义 markdown
 
 {% highlight ruby %}
 def markdown(text)
