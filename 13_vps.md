@@ -1,180 +1,40 @@
 ---
 layout: default
-title: 添加评论
+title: 购买服务器和域名绑定
 ---
 
-现在来给大家添加评论功能。关注的核心点是如果创建两种资源之间的一对多关系。
 
-### 创建 model 和 form
+从这一集开始，咱们就要把代码部署到服务器上了。首先肯定是先要有服务器了，然后再去申请一个域名，跟这个服务器绑定，这集就来聊这些内容。
 
 
-先来创建 model 和 migration 文件
+### 用国内的服务器的需要域名备案
 
-    rails g model comment content:text username:string email:string issue_id:integer
+国内的服务我自己最喜欢的是阿里系统，其他的其实我也没怎么用过。也就是在阿里云申请云主机，很便宜啊，然后在万网注册域名。不过用国内的主机基本上是绕不过备案这一步了，
+在 [万网首页](http://www.net.cn/) ，右上角可以看到 “备案专区” 的链接。以前没有阿里提供的备案服务的时候，备案据说是相当麻烦，很多时候都要求本人去现场照相。
+现在阿里这边能省去一些步骤，而且也不用肉身到场照相了，阿里会寄过来一个背景，我们那次就是贴到自己家墙上找个照片然后给他们发过去就行了。总体来说还是挺烦人的，我们
+那会儿整个过程下来大概是两三周的时间，不过那是13年，现在也许会更高效一些了。
 
-为了体现归属关系，也就是一个 issue 对应多个 comment 的关系。要在 issue 中添加一个新的字段 `issue_id` 这个在后面会有妙用。
+如果你暂时还确定自己是否需要备案，有一个取巧的办法，就是可以先在国外申请服务器和域名，未来如果非要备案不可，国外注册的域名一样可以在国内备案的，我自己就这样弄过。
+比直接在国内备案的域名一点儿也不多费事。所以下面演示部分就以国外的服务为例了。
 
-到 views/issues/show.html.erb 中添加
+### 在 digitalocean 申请服务器
 
-{% highlight erb %}
-<%= render partial: 'shared/comment_box', locals: {issue: @issue} %>
-{% endhighlight %}
+国外卖虚拟主机 vps 的网站有两个是非常著名的，一个是 linode，另一个是 digitalocean/DO 。如果你很在意速度，那 linode 的东京机房是首选，不过国内用还是跟阿里云差很远。
+好在很多时候，连接速度不构成瓶颈。比如我自己的 happycasts.net 目前用的是 DO 的美国那边的机房，我自己感觉网页访问速度也是可以的，上面的视频都放在了国内的 CDN 服务
+qiniu.com 上了。说到这里再来提一下你可能比较关心的问题，就是服务器在国外，有没有可能被墙呢？当然不敢说没有可能，但是我自己有几个域名都用了三四年了，一直没有问题。几年中发生过一两次
+IP 没办法访问的情况，这样换个主机和 IP 就又恢复了，问题不大。
 
-创建 views/shared/_comment_box.html.erb，这次使用 form_tag <http://guides.rubyonrails.org/form_helpers.html> 比 form_for 更加直白简单。
+这里我以 DO 来演示后续所有操作。跑 Rails 应用还是不要选最低配的了，推荐选择1G内存的套餐。可惜，DO 和 linode 目前都只支持信用卡支付，很多本科在校生是没有信用卡的。
 
-{% highlight erb %}
-<article class="reply clearfix">
-  <div class="avatar">
-    <%= link_to "#" do %>
-      <%= image_tag "default_avatar.png", class: "image-circle" %>
-    <% end %>
-  </div>
-  <div class="body">
-  <%= form_tag("/issues/#{issue.id}/comments", method: :post) do  %>
-    <%= label_tag :username, "用户名" %>
-    <%= text_field_tag(:username) %>
-    <%= label_tag :email, "邮箱" %>
-    <%= text_field_tag(:email) %>
-    <%= text_area_tag(:content) %>
-    <%= submit_tag '提交评论', class: 'btn btn-primary btn-submit' %>
-  <% end %>
-  </div>
-</article>
-{% endhighlight %}
+### 域名绑定
 
-到 route.rb 添加
+域名注册也有很多选择，比较大的一个网站就是 https://www.godaddy.com/ 。我自己的大部分域名都在 domain.com 上面。
 
-{% highlight ruby %}
-# comments
-post '/issues/:issue_id/comments' => "comments#create"
-{% endhighlight %}
 
-接下来就是创建 app/controllers/comments_controller.rb
+如何绑定域名 [有一篇 DO 的文章可以参考](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-host-name-with-digitalocean) 。
 
-    rails g controller comments
+进入 domain.com 的 domaincentral ，找到自己的域名，点开，找到 nameservers 这一项，这里原有的域名服务器就是 domain.com 自己的，如果不改，那么就可以到跟
+nameservers 平级的 dns 这一项下面去设置域名了。但是我的习惯是吧域名服务器改成 digitalocean 的，这样 dns 的设置你在这里设置就无效了，而要去 DO 网站上设置了。
+改好 nameservers 之后，点击 save，这个设置可能要等一天左右的时间才能生效。
 
-create 方法的具体内容是：
-
-{% highlight ruby %}
-def create
-  c = Comment.new
-  c.username = params[:username]
-  c.email = params[:email]
-  c.content = params[:content]
-  c.issue_id = params[:issue_id]
-  c.save
-  issue = Issue.find(params[:issue_id])
-  redirect_to issue
-end
-{% endhighlight %}
-
-打开 Sequel Pro 可以看到改存的内容就都存好了。
-
-### 显示 comment
-
-到 views/issues/show.html.erb 中添加
-
-{% highlight erb %}
-<%= render partial: 'shared/comment_list', locals: {comments: @comments} %>
-{% endhighlight %}
-
-所以要来创建 shared/_comment_list.html.erb
-
-{% highlight erb %}
-  <% comments.each do |c| %>
-    <div class="reply clearfix">
-       <div class="avatar">
-         <%= link_to '#' do %>
-           <%= image_tag 'default_avatar.png', class: 'image-circle' %>
-         <% end %>
-       </div>
-       <div class="body">
-         <div class="heading">
-            <h5 class="name"><%= link_to c.username, "#" %></h5>
-            <span class="datetime">
-              <%= time_ago_in_words c.created_at %> ago
-            </span>
-         </div>
-         <%= c.content %>
-       </div>
-    </div>
-  <% end %>
-{% endhighlight %}
-
-现在不太好办的一个事就是如何得到这个 issue 下的所有 comment 。这时候我多么多么希望在 issues_controller.rb 的 show 方法中，我可以使用这样的语句啊
-
-{% highlight diff %}
-def show
-   @issue = Issue.find(params[:id])
-   @comments = @issue.comments
-end
-{% endhighlight %}
-
-其实要实现这样的效果也不难，就是要在 issue 和 comment 之间确立一对多关系，具体操作是这样。
-
-### 建立一对多的关系
-
-第一步，确保 comments 表里面有 `issue_id` 这个字段，注意，名字一个字都不能错，因为要用它和 `issues` 表去产生映射关系。
-
-第二步，到 issue.rb 文件中添加
-
-{% highlight ruby %}
-has_many :comments
-{% endhighlight %}
-
-最后一步，到 comment.rb 中，添加
-
-{% highlight ruby %}
-belongs_to :issue
-{% endhighlight %}
-
-好了，就是这三步。现在到 rails console 中来创建一个隶属于（或者说 belongs to）id=1 的这个 issue 的一个 comment
-
-    Comment.create(issue_id: 1, username: 'happypeter', email: 'happypeter1983@gmail.com', content: 'Hello peter here')
-
-明显，这里是通过指明这个 comment 的 issue_id 来确定这个隶属关系的。 重启一个 rails console，执行
-
-    i = Issue.find(1)
-    i.comments
-
-就可以看到刚才创建的那个 comment 了。
-
-这样，到页面中刷新一下，就可以看到所有评论了。下面稍微把代码改的好一点。
-
-到 comment_controller.rb 的 create 方法中
-
-{% highlight diff %}
-- issue = Issue.find(params[:issue_id])
-- redirect_to issue
-+ redirect_to c.issue
-{% endhighlight %}
-
-感谢一对多关系，咱们有了 `issue.comments` 和 `comment.issue` 这些方便的用法。
-
-这样在来到首页，这里的评论数也是假的。到 views/page/_issue_list.html.erb 中
-
-{% highlight erb %}
-- <%= link_to '5', "#" %>
-+ <%= link_to i.comments.count, i %>
-{% endhighlight %}
-
-更改评论头像。issue#show 页面的每个评论都是一个头像也不好看。其实如果发评论的人使用 <http://en.gravatar.com/> 的服务，是可以通过他给咱们的 email 来取得他的邮箱的。
-
-到 comment.rb 文件
-
-{% highlight ruby %}
-def user_avatar
-  gravatar_id = Digest::MD5.hexdigest(self.email.downcase)
-  "http://gravatar.com/avatar/#{gravatar_id}.png?s=512&d=retro"
-end
-{% endhighlight %}
-
-这样到 views/shared/_comment_list.html.erb 中，
-
-{% highlight diff %}
-- <%= image_tag 'default_avatar.png', class: 'image-circle' %>
-+ <%= image_tag c.user_avatar, class: 'image-circle' %>
-{% endhighlight %}
-
-这样就可以真确显示头像了。
-
+使用 happypeter.org 为例子。
