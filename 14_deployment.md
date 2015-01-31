@@ -3,11 +3,27 @@ layout: default
 title: 部署项目
 ---
 
-### 创建用户
+密码 digitalocean 已经发送到我的邮箱中了，所以我可以用 root 的身份登人到新加坡的这个服务器之中。
+不用 root 来进行部署。
+
+
+NO.1 创建用户 peter
 
     adduser peter --ingroup sudo
 
-### 安装 ruby
+然后切换到 peter 这个用户
+
+    su peter
+    cd
+
+后续所有操作都以 peter 的身份来做。
+
+### 安装 ruby 和 rails
+
+
+NO.2 安装 ruby 语言
+
+这一部分跟本地开发环境下没有太太的区别，在 [Rails 10日谈课程](http://www.imooc.com/video/4730) 中有一集是专门介绍过的。
 
     sudo apt-get update
     sudo apt-get install git-core curl zlib1g-dev build-essential \
@@ -28,12 +44,17 @@ title: 部署项目
     rbenv global 2.1.2
 
 
-install mysql
+NO.3 安装 mysql 数据库
 
       sudo apt-get install mysql-server  mysql-client  libmysqlclient-dev
 
 
 ### 安装 nginx
+
+
+NO.4 安装 nginx 和 passenger
+
+nginx 是一个高速的 web 服务器， passenger 是跑 rails 应用需要的“应用服务器”，总之它们都是服务器。
 
 安装需要的密钥：
 
@@ -41,16 +62,20 @@ install mysql
 
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
 
-
 让 apt-get 支持 https
 
     sudo apt-get install apt-transport-https ca-certificates
     sudo add-apt-repository 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main'
     sudo apt-get update
 
-安装 nginx 和 passenger，注意这样安装，就不用执行 `passenger-install-nginx-module` 了
+安装 nginx 和 passenger，注意这样安装，就不用执行 `passenger-install-nginx-module` 了，以前的运行这个命令的时候经常
+会出现由于内存不够导致执行失败，很烦人的。
 
     sudo apt-get install nginx-extras passenger
+
+
+
+### 部署
 
 
    gem install bundler
@@ -58,11 +83,7 @@ install mysql
 
    sudo apt-get install nodejs
 
-
-
-
-### 部署
-
+   
 clone 代码之前需要先把 ssh key 上传到 github 网站上，不然没有办法 clone
 
     cd meetup/

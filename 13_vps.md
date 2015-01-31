@@ -38,3 +38,5 @@ nameservers 平级的 dns 这一项下面去设置域名了。但是我的习惯
 改好 nameservers 之后，点击 save，这个设置可能要等一天左右的时间才能生效。
 
 使用 happypeter.org 为例子。后面真正的 DNS 设置就到 DO 网站上来作了。
+
+设置好之后，等待一天左右的时间，如果 ping happypeter.org 显示的 IP 已经是咱们刚刚申请的那个主机的 IP ，那么域名绑定就成功了。
