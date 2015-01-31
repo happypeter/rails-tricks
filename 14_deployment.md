@@ -132,7 +132,7 @@ NO.11 修改 nginx 和 passenger 配置
 然后要来为 meetup 项目，专门创建一个服务器配置文件。
 
     cd /etc/nginx/sites-enabled
-    vim meetup.conf
+    sudo vim meetup.conf
 
 meetup.conf 中的内容如下
 
