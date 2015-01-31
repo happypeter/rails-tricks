@@ -79,35 +79,34 @@ nginx 是一个高速的 web 服务器， passenger 是跑 rails 应用需要的
 
 ### 部署
 
-NO.4 安装 javascript 的运行环境，这个是跑 rails 应用必须的。
+NO.5 安装 javascript 的运行环境，这个是跑 rails 应用必须的。
 
-   sudo apt-get install nodejs
+    sudo apt-get install nodejs
+
+NO.6 通过 scp 或者更为常见的用 git clone 命令用 github.com 上把代码 clone 到服务器上。
 
 
-NO.5 通过 scp 或者更为常见的用 git clone 命令用 github.com 上把代码 clone 到服务器上。
-
-
-NO.6 安装 bundler，并用它来把项目需要的依赖包都安装好
+NO.7 安装 bundler，并用它来把项目需要的依赖包都安装好
 
     gem install bundler
     rbenv rehash
     cd meetup/
     bundle
 
-NO.7 填写需要的配置
+NO.8 填写需要的配置
 
     cd config
     vim database.yml # 填写数据库的密码
     vim ...  # 一般还会有一些其他的配置，不过咱们 meetup 这个项目里就没有了
 
-NO.8 创建数据库
+NO.9 创建数据库
 
     bundle exec rake db:create db:migrate RAILS_ENV=production
 
 尤其是要注意后面的 `RAILS_ENV` 。
 
 
-NO.9 把 js/css 等 asset 文件做预处理
+NO.10 把 js/css 等 asset 文件做预处理
 
     bundle exec rake assets:precompile RAILS_ENV=production
     # precompile 这一句如果不加 RAILS_ENV 设置还是会有问题的，font-awesome 字体文件加载不了
@@ -115,7 +114,7 @@ NO.9 把 js/css 等 asset 文件做预处理
 这样的结果是在，public/ 之下出现了很多代哈希值的文件名，粗略的可以认为这样的措施就是为了提高网站访问速度。
 
 
-NO.10 修改 nginx 和 passenger 配置
+NO.11 修改 nginx 和 passenger 配置
 
 打开 nginx 的配置文件：
 
