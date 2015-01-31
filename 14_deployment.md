@@ -49,8 +49,9 @@ NO.3 安装 mysql 数据库
       sudo apt-get install mysql-server  mysql-client  libmysqlclient-dev
 
 
-### 安装 nginx
+### 安装服务器
 
+这一步就跟本地开发环境不一样了。
 
 NO.4 安装 nginx 和 passenger
 
