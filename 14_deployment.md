@@ -74,31 +74,81 @@ nginx 是一个高速的 web 服务器， passenger 是跑 rails 应用需要的
     sudo apt-get install nginx-extras passenger
 
 
+现在浏览器中访问 happypeter.org 就可以看到 nginx 的默认页面了，如果你看不到，证明 nginx 没有装好。
 
 ### 部署
 
-
-   gem install bundler
-   rbenv rehash
+NO.4 安装 javascript 的运行环境，这个是跑 rails 应用必须的。
 
    sudo apt-get install nodejs
 
-   
-clone 代码之前需要先把 ssh key 上传到 github 网站上，不然没有办法 clone
 
+NO.5 通过 scp 或者更为常见的用 git clone 命令用 github.com 上把代码 clone 到服务器上。
+
+
+NO.6 安装 bundler，并用它来把项目需要的依赖包都安装好
+
+    gem install bundler
+    rbenv rehash
     cd meetup/
     bundle
 
+NO.7 填写需要的配置
+
     cd config
-    cp database.example.yml database.yml
+    vim database.yml # 填写数据库的密码
+    vim ...  # 一般还会有一些其他的配置，不过咱们 meetup 这个项目里就没有了
+
+NO.8 创建数据库
+
     bundle exec rake db:create db:migrate RAILS_ENV=production
-    touch tmp/restart.txt
+
+尤其是要注意后面的 `RAILS_ENV` 。
+
+
+NO.9 把 js/css 等 asset 文件做预处理
 
     bundle exec rake assets:precompile RAILS_ENV=production
     # precompile 这一句如果不加 RAILS_ENV 设置还是会有问题的，font-awesome 字体文件加载不了
 
+这样的结果是在，public/ 之下出现了很多代哈希值的文件名，粗略的可以认为这样的措施就是为了提高网站访问速度。
 
-### 导入老数据
 
-mysql -uroot -p111111 happycasts_production<happycasts_production.sql
-ERROR 1064 (42000) at line 379: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''20' at line 1
+NO.10 修改 nginx 和 passenger 配置
+
+打开 nginx 的配置文件：
+
+    sudo vim /etc/nginx/nginx.conf
+
+找到下面的两行，取消注释
+
+    passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+    passenger_ruby /usr/bin/ruby;
+
+并把第二行改为
+
+    passenger_ruby /home/peter/.rbenv/shims/ruby;
+
+然后要来为 meetup 项目，专门创建一个服务器配置文件。
+
+    cd /etc/nginx/sites-enabled
+    vim meetup.conf
+
+meetup.conf 中的内容如下
+
+{% highlight nginx %}
+server {
+  listen 80 default;
+  server_name happypeter.org;
+  passenger_enabled on;
+  gzip on;
+
+  root /home/peter/meetup/public;
+}
+{% endhighlight %}
+
+nginx 的配置修改后，不要忘了重启 nginx 服务器
+
+    sudo service nginx restart
+
+这样就可以浏览器中访问 happypeter.org 看到应用了。
