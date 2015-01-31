@@ -18,7 +18,7 @@ NO.1 创建用户 peter
 
 后续所有操作都以 peter 的身份来做。
 
-### 安装 ruby 和 rails
+### 安装 ruby
 
 
 NO.2 安装 ruby 语言
