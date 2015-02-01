@@ -132,6 +132,7 @@ NO.11 修改 nginx 和 passenger 配置
 然后要来为 meetup 项目，专门创建一个服务器配置文件。
 
     cd /etc/nginx/sites-enabled
+    rm default
     sudo vim meetup.conf
 
 meetup.conf 中的内容如下
@@ -151,4 +152,22 @@ nginx 的配置修改后，不要忘了重启 nginx 服务器
 
     sudo service nginx restart
 
-这样就可以浏览器中访问 happypeter.org 看到应用了。
+NO.12 浏览器中访问 happypeter.org 看到 502 错误。这是怎么回事呢？稍微早一点的 rails 版本是没有这个问题的。
+
+查看一下
+
+    sudo tail -f  /var/log/nginx/error.log
+
+重新访问 happypeter.org ，可以看到错误原因：
+
+    *** Exception RuntimeError in Rack application object
+    (Missing `secret_key_base` for 'production' environment, set this value in `config/secrets.yml`)
+
+解决方法是用 vim 打开 config/secrets.yml 文件，到 production 一项下面
+
+{% highlight ruby %}
+-  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
++  secret_key_base: 852854f482963d747f4cbe8ce028f9400d76fb247f648029cb5643d90560367a34347aa491a3b1a96dce0ebddce8093fc296fed2bfabf1c79de5bcfb3a405238
+{% endhighlight %}
+
+一个偷懒的方法就是把前面的 development 下的 secret_key_base 拷贝过来，随便改一下。
