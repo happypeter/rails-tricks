@@ -57,7 +57,7 @@ end
 Gemfile 中添加 [pygemnt.rb](https://github.com/tmm1/pygments.rb)
 
 {% highlight ruby %}
-gem 'pygment.rb'
+gem 'pygments.rb'
 {% endhighlight %}
 
 <!-- 这样系统上就不用安装 pygment 了，所有的 py 代码都打包到 Gem 中了 -->
