@@ -171,4 +171,8 @@ NO.12 浏览器中访问 happypeter.org 看到 502 错误。这是怎么回事�
 +  secret_key_base: 852854f482963d747f4cbe8ce028f9400d76fb247f648029cb5643d90560367a34347aa491a3b1a96dce0ebddce8093fc296fed2bfabf1c79de5bcfb3a405238
 {% endhighlight %}
 
-要设置的随机数可以通过 `rake secret` 命令来获得。
+要设置的随机数可以通过 `rake secret` 命令来获得。需要运行
+
+    touch tmp/restart.txt
+
+来重新加载设置。
