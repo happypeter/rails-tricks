@@ -1,67 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <title>404</title>
   <style>
-  body {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
+    #error-page {
+      background-color:#53C1C0;;
+      position:fixed !important;
+      position:absolute;
+      text-align:center;
+      top:0;
+      right:0;
+      bottom:0;
+      left:0;
+      z-index:99999;
+    }
+    #error-inner {
+      margin: auto;
+    }
+    #error-inner h1 {
+      text-transform:uppercase;color:white;margin-top:20px;font-size:20px;
+    }
+    .pesan-eror{
+      width:200px;
+      height:200px;
+      margin:0 auto 40px;
+      background:#ffc754;
+      color:#fff;
+      font-size:100px;
+      line-height:200px;
+      -moz-border-radius-topleft: 75px;
+      -moz-border-radius-topright:75px;
+      -webkit-border-top-left-radius:75px;
+      -webkit-border-top-right-radius:75px;
+      border-top-left-radius:95px;
+      border-top-right-radius:95px;
+      border-bottom-left-radius:14px;
+      border-bottom-right-radius:14px;
+      position:relative;
+      animation-name: floating;
+      -webkit-animation-name: floating;
 
-  div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
+      animation-duration: 1.5s;
+      -webkit-animation-duration: 1.5s;
 
-  div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+      animation-iteration-count: infinite;
+      -webkit-animation-iteration-count: infinite;
+    }
 
-  h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
+    @keyframes floating {
+      0% {
+        transform: translateY(0%);
+      }
+      50% {
+        transform: translateY(8%);
+      }
+      100% {
+        transform: translateY(0%);
+      }
+    }
 
-  div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+    @-webkit-keyframes floating {
+      0% {
+        -webkit-transform: translateY(0%);
+      }
+      50% {
+        -webkit-transform: translateY(8%);
+      }
+      100% {
+        -webkit-transform: translateY(0%);
+      }
+    }
+    .pesan-eror::after {
+      content:" ";
+      width:0;
+      height:0;
+      bottom:-17px;
+      border-color:#ffc754 transparent transparent;
+      border-style:solid;
+      border-width:20px 20px 0;
+      position:absolute;
+      left:40%;
+    }
+    .balik-home {
+      position:relative;
+      margin:20px auto;
+      display:block;
+      padding:10px 15px 10px 15px;
+      font-family:"Helvetica Neue", Helvetica;
+      font-size:30px;
+      background:#f26964;
+      border:0;
+      color:#fff;
+      border-radius:3px;
+      outline:none;
+      width:600px;
+      height:40px;
+      cursor:pointer;
+
+    }
+
+    .balik-home:hover {
+      background:none;
+    }
+
+    .balik-home:after,.balik-home:before {
+      position:absolute;
+      background:#285677;
+      content:"";
+      width:0%;
+      height:100%;
+      bottom:0px;
+      left:0;
+      z-index:-999999999;
+      border-radius:3px;
+    }
+
+    .balik-home:before {
+      background:#f26964;
+      width:100%;
+    }
+
+    .balik-home:hover:after {
+      width:100%;
+      -webkit-transition: all 1s ease-in-out;
+      -moz-transition: all 1s ease-in-out;
+      transition: all 1s ease-in-out;
+    }
+    .balik-home a{color:white;text-decoration:none}
   </style>
 </head>
-
 <body>
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <div>
-      <h1>The page you were looking for doesn't exist.</h1>
-      <p>You may have mistyped the address or the page may have moved.</p>
+  <div id='error-page'>
+    <div id='error-inner'>
+      <h1> 不好意思，找不到您要的页面啦</h1>
+      <div class="pesan-eror">404</div>
+      <p class="balik-home"><a href="/">回首页看看</a></p><br/>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
   </div>
 </body>
 </html>

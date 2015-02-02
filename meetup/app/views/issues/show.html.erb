@@ -1,19 +1,21 @@
 <div class="issue-heading">
   <div class="container">
     <%= @issue.title %>
-    <%= link_to 'Destroy', issue_path(@issue), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
-    <%= link_to 'edit', edit_issue_path(@issue), class: "btn btn-primary" %>
+    <% if current_user && current_user == @issue.user %>
+      <%= link_to 'Destroy', issue_path(@issue), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
+      <%= link_to 'edit', edit_issue_path(@issue), class: "btn btn-primary" %>
+    <% end %>
   </div>
 </div>
 <div class="container">
   <div class="replies">
     <article class="reply clearfix">
       <div class="avatar">
-        <img src="http://gravatar.com/avatar/a92785d8d68f1d1d83b008574f8b5dba.png?s=512&amp;d=retr" alt="" class="image-circle">
+        <%= image_tag @issue.user.avatar, class: "image-circle" %>
       </div>
       <div class="body">
         <div class="heading">
-          <h5 class="name"><a href="#">happypeter</a></h5>
+          <h5 class="name"><%= link_to @issue.user.name, "#" %></h5>
         </div>
         <%= markdown @issue.content %>
       </div>
@@ -22,5 +24,9 @@
       <%= render partial: 'shared/comment', locals: {c: c} %>
     <% end %>
   </div>
-  <%= render partial: 'shared/comment_box', locals: {issue: @issue} %>
+  <% if current_user %>
+    <%= render partial: 'shared/comment_box', locals: {issue: @issue} %>
+  <% else %>
+    <%= link_to "先登录，后评论", login_path %>
+  <% end %>
 </div>

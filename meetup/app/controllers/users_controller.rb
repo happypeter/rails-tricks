@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      UserMailer.welcome_email(@user).deliver
       cookies[:auth_token] = @user.auth_token
       redirect_to :root
     else

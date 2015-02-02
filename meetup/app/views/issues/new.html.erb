@@ -1,1 +1,16 @@
-<%= render partial: 'form', locals: {issue: @issue} %>
+<div class="new-issue-form-container clearfix">
+  <div class="new-issue-form clearfix">
+    <%= form_for(Issue.new(user_id: current_user.id)) do |f| %>
+      <%= f.hidden_field :user_id %>
+      <dl class="form">
+        <dt><%= f.label :title %></dt>
+        <dd><%= f.text_field :title %></dd>
+      </dl>
+      <dl class="form">
+        <dt><%= f.label :content %></dt>
+        <dd><%= f.text_area :content %></dd>
+      </dl>
+      <p><%= f.submit :class => "submit-issue-button btn btn-primary" %></p>
+    <% end %>
+  </div>
+</div>
