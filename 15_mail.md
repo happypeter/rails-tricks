@@ -6,10 +6,9 @@ title: 邮件发送
 网站上线后，朋友们就会来注册，所以一个靠谱的做法是每当网站有了更新就及时发个邮件通知各位高朋。
 
 ### 使用 ActionMailer
-
 参考资料是 [Action Mailer Guide](http://guides.rubyonrails.org/action_mailer_basics.html)
 
-这一集里咱们就拿一个最简单的情况做例子，有新用户注册了，那就给他发一封邮件表示环境。
+这一集里咱们就拿一个最简单的情况做例子，有新用户注册了，那就给他发一封邮件表示欢迎。
 
 顺着一个比较直白的思路来写这些代码。先到 users_controller.rb 中
 
@@ -41,7 +40,6 @@ end
 真正的邮件要放在 app/views/user_mailer/welcome_email.html.erb
 
 ### 漂亮的 email
-
 白纸黑字的 email 看起来不够可爱，email 因为是在邮箱中打开的，所以写 css 和 html 的时候跟普通网页还是有些区别的，比如网页开发中目前已经基本淘汰的
 table，在 email 这里却是要经常用到的。google 一下 ”tuts html mail” 可以在 tutsplus 的网站上找到一些很好的教程。不过最简单的方式还是直接根据别人
 的模板来改一下。我这里就可以直接拷贝我自己 happycasts 这个项目中的 [code](https://github.com/happypeter/happycasts/blob/master/app/views/happy_mailer/new_ep_release.html.erb) 。
@@ -53,7 +51,6 @@ table，在 email 这里却是要经常用到的。google 一下 ”tuts html ma
 mailgun 这边不用填信用卡就可以发送免费的每月10000封邮件。
 
 创建一个新的 domain，叫做 `happypeter.org`
-
 
 production.rb 中
 
