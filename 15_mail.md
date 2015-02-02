@@ -45,7 +45,7 @@ table，在 email 这里却是要经常用到的。google 一下 ”tuts html ma
 的模板来改一下。我这里就可以直接拷贝我自己 happycasts 这个项目中的 [code](https://github.com/happypeter/happycasts/blob/master/app/views/happy_mailer/new_ep_release.html.erb) 。
 
 
-现在咱们的邮件发送功能基本上实现了，除了发不出去邮件之外，没有什么缺陷:-)
+现在咱们的邮件发送功能基本上实现了，除了发不出去邮件之外，没有什么缺陷:-) 先把代码放到服务器上，下面的操作在服务器上的代码中作。
 
 ### 配置 Mailgun
 mailgun 这边不用填信用卡就可以发送免费的每月10000封邮件。
@@ -67,3 +67,9 @@ config.action_mailer.smtp_settings = {
 {% endhighlight %}
 
 实际中这些用户名密码信息一般不会写到 production.rb 中，可以考虑设置环境变量或者使用 [Settingslogic](https://github.com/settingslogic/settingslogic) 。
+
+重启一下应用：
+
+    touch tmp/restart.txt
+
+来注册一下试试吧。
