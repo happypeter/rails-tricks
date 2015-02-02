@@ -9,11 +9,22 @@ title: 邮件发送
 
 参考资料是 [Action Mailer Guide](http://guides.rubyonrails.org/action_mailer_basics.html)
 
+这一集里咱们就拿一个最简单的情况做例子，有新用户注册了，那就给他发一封邮件表示环境。
+
+顺着一个比较直白的思路来写这些代码。先到 users_controller.rb 中
+
+{% highlight ruby %}
+if @user.save
++ UserMailer.welcome_email(@user).deliver
+  cookies[:auth_token] = @user.auth_token
+{% endhighlight %}
+
+这样问题来了，没有 UserMailer 也没有 welcome_email 这个方法。所以要执行
 
     rails generate mailer UserMailer
 
 
-user_mailer.rb 中稍微做一下修改，改成下面这样
+把生成的 user_mailer.rb 稍微做一下修改，改成下面这样
 
 {% highlight ruby %}
 class UserMailer < ActionMailer::Base
@@ -25,16 +36,7 @@ class UserMailer < ActionMailer::Base
 end
 {% endhighlight %}
 
-
-users_controller.rb 中
-
-{% highlight ruby %}
-if @user.save
-+ UserMailer.welcome_email(@user).deliver
-  cookies[:auth_token] = @user.auth_token
-{% endhighlight %}
-
-
+这个就跟一个 controller action 差不多，所以还要添加一个 view 文件进来，也就是邮件正文了。
 
 真正的邮件要放在 app/views/user_mailer/welcome_email.html.erb
 
