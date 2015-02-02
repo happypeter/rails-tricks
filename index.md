@@ -174,7 +174,7 @@ title: by @happypeter
     <tr class="episode-wrap">
       <td class="episode-index">15</td>
       <td class="episode-title">
-        <a href="14_email.html">
+        <a href="15_mail.html">
           Email
         </a>
       </td>
