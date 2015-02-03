@@ -22,7 +22,6 @@ if @user.save
 
     rails generate mailer UserMailer
 
-
 把生成的 user_mailer.rb 稍微做一下修改，改成下面这样
 
 {% highlight ruby %}
@@ -51,6 +50,12 @@ table，在 email 这里却是要经常用到的。google 一下 ”tuts html ma
 mailgun 这边不用填信用卡就可以发送免费的每月10000封邮件。
 
 创建一个新的 domain，叫做 `happypeter.org`
+
+<!-- 验证的时候，在 digitalocean 中填写 txt record 的时候 happypeter.org 要写成 @
+xxx_key.happypeter.org 要写成 xxx_key 不然就验证失败。
+
+peterandbillie.com 原来就用的 xxx_key.peterandbillie.com 几个月都没有通过验证
+ -->
 
 production.rb 中
 
