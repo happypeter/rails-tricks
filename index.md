@@ -135,7 +135,7 @@ title: by @happypeter
         </a>
       </td>
       <td class="episode-length">
-        x min
+        5 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -146,7 +146,7 @@ title: by @happypeter
         </a>
       </td>
       <td class="episode-length">
-        x min
+        11 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -157,7 +157,7 @@ title: by @happypeter
         </a>
       </td>
       <td class="episode-length">
-        x min
+        10 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -168,7 +168,7 @@ title: by @happypeter
         </a>
       </td>
       <td class="episode-length">
-        x min
+        14 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -179,7 +179,7 @@ title: by @happypeter
         </a>
       </td>
       <td class="episode-length">
-        x min
+        8 min
       </td>
     </tr>
     <tr class="episode-wrap">
@@ -190,7 +190,7 @@ title: by @happypeter
         </a>
       </td>
       <td class="episode-length">
-        x min
+        4 min
       </td>
     </tr>
   </tbody>
